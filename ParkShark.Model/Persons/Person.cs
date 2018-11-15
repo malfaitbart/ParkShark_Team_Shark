@@ -8,7 +8,7 @@ namespace ParkShark.Model.Persons
 {
     public class Person
     {
-        public int Id { get; }
+        public int Id { get; set;  }
         public string Name { get; set; }
         public string MobilePhone { get; set; }
         public string Phone { get; set; }

@@ -12,7 +12,7 @@ namespace ParkShark.Services.Tests.DivisionServices
     public class DivisionServicesTest
     {
         [Fact]
-        public void GivenANameAndADirectorIdAndADivisionService_WhenCreateDivision_ThenANewDivisionObjectIsReturned()
+        public void GivenADivisionService_WhenCreateDivision_ThenANewDivisionObjectIsReturned()
         {
             //Given
             string name = "test";

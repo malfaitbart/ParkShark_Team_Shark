@@ -9,7 +9,6 @@ namespace ParkShark.Services.Data
 {
     public class ParkSharkContext : DbContext
     {
-<<<<<<< HEAD
         private readonly string _connectionString;
         private readonly ILoggerFactory _loggerFactory;
 
@@ -20,24 +19,27 @@ namespace ParkShark.Services.Data
         {
             _connectionString = "Data Source=.\\SQLExpress;Initial Catalog=ParkShark;Integrated Security=True;";
             _loggerFactory = loggerFactory;
-=======
-        public ParkSharkContext()
-        {
->>>>>>> 0cc210d121a2ef8f07ea9c25f1e9deda8c00d89b
         }
 
         public ParkSharkContext(DbContextOptions<ParkSharkContext> options) : base(options)
         {
-<<<<<<< HEAD
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if(optionsBuilder == null)
+            {
             optionsBuilder
-                .UseSqlServer(this._connectionString);
+                .UseSqlServer("Data Source=.\\SQLExpress;Initial Catalog=ParkShark;Integrated Security=True;");
+            }
+
+
             if (_loggerFactory != null)
             {
                 optionsBuilder.UseLoggerFactory(_loggerFactory);
             }
+
             base.OnConfiguring(optionsBuilder);
-=======
->>>>>>> 0cc210d121a2ef8f07ea9c25f1e9deda8c00d89b
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -45,11 +47,10 @@ namespace ParkShark.Services.Data
             modelBuilder.Entity<Division>()
                 .ToTable("Divisions")
                 .HasKey("ID");
-<<<<<<< HEAD
 
             modelBuilder.Entity<Person>()
                 .ToTable("Persons")
-                .HasKey("ID");
+                .HasKey("Id");
 
             modelBuilder.Entity<Person>()
                 .OwnsOne(person=>person.PersonAddress,
@@ -63,12 +64,12 @@ namespace ParkShark.Services.Data
 
             modelBuilder.Entity<Parkinglot>()
                 .ToTable("ParkingLots")
-                .HasKey("ID");
+                .HasKey("Id");
 
 
             modelBuilder.Entity<BuildingType>()
                 .ToTable("BuildingTypes")
-                .HasKey("ID");
+                .HasKey("Id");
 
             modelBuilder.Entity<Parkinglot>()
                 .OwnsOne(parkinglot => parkinglot.PlAddress,
@@ -101,8 +102,6 @@ namespace ParkShark.Services.Data
             //    .HasForeignKey(parkinglot => parkinglot.DivisionId)
             //    .IsRequired();
 
-=======
->>>>>>> 0cc210d121a2ef8f07ea9c25f1e9deda8c00d89b
         }
     }
 }

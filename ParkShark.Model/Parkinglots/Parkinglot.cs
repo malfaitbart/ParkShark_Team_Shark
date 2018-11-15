@@ -10,7 +10,7 @@ namespace ParkShark.Model.Parkinglots
 {
     public class Parkinglot
     {
-        public int Id { get; }
+        public int Id { get; set; }
         public int DivisionId { get; set; }
         public Division PlDivision { get; set; }
         public string Name { get; set; }
