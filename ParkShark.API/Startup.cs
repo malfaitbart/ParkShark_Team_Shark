@@ -11,7 +11,7 @@ using ParkShark.API.Controllers.Divisions;
 using ParkShark.Infrastructure.Exceptions;
 using ParkShark.Infrastructure.Logging;
 using ParkShark.Services.Data;
-using ParkShark.Services.Divisions;
+using ParkShark.Services.Services.Divisions;
 using ParkShark.Services.Repositories.Divisions;
 
 namespace ParkShark.API

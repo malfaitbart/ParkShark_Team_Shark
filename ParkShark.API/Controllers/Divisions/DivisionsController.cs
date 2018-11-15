@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ParkShark.Services.Divisions;
+using ParkShark.Services.Services.Divisions;
 
 namespace ParkShark.API.Controllers.Divisions
 {
@@ -19,6 +19,14 @@ namespace ParkShark.API.Controllers.Divisions
         {
             _divisionMapper = divisionMapper;
             _divisionService = divisionService;
+        }
+
+        [HttpGet]
+        public ActionResult<List<DivisionDto>> GetAll()
+        {
+            var allDivisions = _divisionService.GetAll();
+            var allDivisionsDto = _divisionMapper.ListToDtoList(allDivisions);
+            return allDivisionsDto;
         }
 
         [HttpPost]

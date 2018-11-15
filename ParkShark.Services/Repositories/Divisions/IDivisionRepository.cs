@@ -8,5 +8,6 @@ namespace ParkShark.Services.Repositories.Divisions
     public interface IDivisionRepository
     {
         bool SaveNewDivision(Division division);
+        List<Division> GetAllDevisions();
     }
 }

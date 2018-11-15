@@ -1,7 +1,8 @@
 ﻿using ParkShark.Model.Divisions;
 using ParkShark.Services.Repositories.Divisions;
+using System.Collections.Generic;
 
-namespace ParkShark.Services.Divisions
+namespace ParkShark.Services.Services.Divisions
 {
     public class DivisionService : IDivisionService
     {
@@ -17,6 +18,11 @@ namespace ParkShark.Services.Divisions
             var newdivision = new Division(name, DirectorId);
             _divisionRepository.SaveNewDivision(newdivision);
             return newdivision;
+        }
+
+        public List<Division> GetAll()
+        {
+            return _divisionRepository.GetAllDevisions();
         }
     }
 }

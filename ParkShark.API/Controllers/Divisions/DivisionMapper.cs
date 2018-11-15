@@ -1,4 +1,6 @@
-﻿using ParkShark.Infrastructure.DtoMapper;
+﻿using System;
+using System.Collections.Generic;
+using ParkShark.Infrastructure.DtoMapper;
 using ParkShark.Model.Divisions;
 
 namespace ParkShark.API.Controllers.Divisions
@@ -13,6 +15,16 @@ namespace ParkShark.API.Controllers.Divisions
         public override Division DtoToDomain(DivisionDto dtoObject)
         {
             return new Division(dtoObject.Name, dtoObject.PersonDirectorId);
+        }
+
+        public List<DivisionDto> ListToDtoList(List<Division> allDivisions)
+        {
+            var output = new List<DivisionDto>();
+            foreach (var division in allDivisions)
+            {
+                output.Add(DomainToDto(division));
+            }
+            return output;
         }
     }
 }

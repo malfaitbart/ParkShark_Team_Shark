@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using ParkShark.Model.Divisions;
 using ParkShark.Services.Data;
@@ -13,6 +14,11 @@ namespace ParkShark.Services.Repositories.Divisions
         public DivisionRepository(ParkSharkContext context)
         {
             _context = context;
+        }
+
+        public List<Division> GetAllDevisions()
+        {
+            return _context.Divisions.ToList();
         }
 
         public bool SaveNewDivision(Division division)

@@ -1,8 +1,9 @@
 ﻿using NSubstitute;
 using ParkShark.Model.Divisions;
-using ParkShark.Services.Divisions;
+using ParkShark.Services.Services.Divisions;
 using ParkShark.Services.Repositories.Divisions;
 using Xunit;
+using System.Collections.Generic;
 
 namespace ParkShark.Services.Tests.DivisionServices
 {
@@ -22,5 +23,17 @@ namespace ParkShark.Services.Tests.DivisionServices
             //Then
             Assert.IsType<Division>(newDivision);
         }
+        //[Fact]
+        //public void GivenADivisionService_WhenGetAll_ThenAListOfDivisionsIsReturned()
+        //{
+        //    //Given
+        //    IDivisionRepository divisionRepository = Substitute.For<IDivisionRepository>();
+        //    var divisionService = new DivisionService(divisionRepository);
+        //    //When
+        //    var actual = divisionService.GetAll();
+
+        //    //Then
+        //    Assert.IsType<List<Division>>(actual);
+        //}
     }
 }

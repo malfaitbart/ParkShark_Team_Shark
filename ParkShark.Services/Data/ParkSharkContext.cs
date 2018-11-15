@@ -10,6 +10,7 @@ namespace ParkShark.Services.Data
 {
     public class ParkSharkContext : DbContext
     {
+        public virtual DbSet<Division> Divisions { get; set; }
         public virtual DbSet<Person> Persons { get; set; }
         public virtual DbSet<Parkinglot> Parkinglots { get; set; }
 
