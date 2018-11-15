@@ -9,6 +9,7 @@ namespace ParkShark.Services.Data
 {
     public class ParkSharkContext : DbContext
     {
+<<<<<<< HEAD
         private readonly string _connectionString;
         private readonly ILoggerFactory _loggerFactory;
 
@@ -19,10 +20,15 @@ namespace ParkShark.Services.Data
         {
             _connectionString = "Data Source=.\\SQLExpress;Initial Catalog=ParkShark;Integrated Security=True;";
             _loggerFactory = loggerFactory;
+=======
+        public ParkSharkContext()
+        {
+>>>>>>> 0cc210d121a2ef8f07ea9c25f1e9deda8c00d89b
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public ParkSharkContext(DbContextOptions<ParkSharkContext> options) : base(options)
         {
+<<<<<<< HEAD
             optionsBuilder
                 .UseSqlServer(this._connectionString);
             if (_loggerFactory != null)
@@ -30,6 +36,8 @@ namespace ParkShark.Services.Data
                 optionsBuilder.UseLoggerFactory(_loggerFactory);
             }
             base.OnConfiguring(optionsBuilder);
+=======
+>>>>>>> 0cc210d121a2ef8f07ea9c25f1e9deda8c00d89b
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -37,6 +45,7 @@ namespace ParkShark.Services.Data
             modelBuilder.Entity<Division>()
                 .ToTable("Divisions")
                 .HasKey("ID");
+<<<<<<< HEAD
 
             modelBuilder.Entity<Person>()
                 .ToTable("Persons")
@@ -92,7 +101,8 @@ namespace ParkShark.Services.Data
             //    .HasForeignKey(parkinglot => parkinglot.DivisionId)
             //    .IsRequired();
 
+=======
+>>>>>>> 0cc210d121a2ef8f07ea9c25f1e9deda8c00d89b
         }
-
     }
 }

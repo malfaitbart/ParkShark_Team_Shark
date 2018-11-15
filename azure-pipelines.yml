@@ -12,3 +12,6 @@ variables:
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
+
+- script: cd ParkShark.Services.Tests && dotnet test --configuration $(buildConfiguration)
+  displayName: 'dotnet test for services $(buildConfiguration)'
