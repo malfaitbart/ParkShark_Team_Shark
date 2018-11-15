@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ParkShark.Infrastructure.Exceptions;
 using ParkShark.Model.Addresses;
 using ParkShark.Model.Parkinglots;
 
 namespace ParkShark.Model.Persons
 {
-    public class Person
+    public class Person:ModelCreationCheckClass
     {
         public int Id { get; set;  }
         public string Name { get; set; }
@@ -18,5 +19,17 @@ namespace ParkShark.Model.Persons
         public int? MembershipId { get; set; }
         public DateTime? RegistrationDate { get; set; }
         public ICollection<Parkinglot> Parkinglots { get; } = new List<Parkinglot>();
-    }
+
+        public void CheckValues()
+        {
+            CheckFilledIn(Name, "Name");
+            if (MobilePhone == null && Phone == null)
+            {
+                CheckFilledIn(MobilePhone, "MobilePhone or Phone");
+            }
+            CheckFilledIn(PersonAddress, "Person address");
+            CheckFilledIn(EmailAdress, "Email");
+        }
+
+ }
 }

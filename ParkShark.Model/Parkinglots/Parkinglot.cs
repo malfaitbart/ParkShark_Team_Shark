@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ParkShark.Infrastructure.Exceptions;
 using ParkShark.Model.Addresses;
 using ParkShark.Model.Divisions;
 using ParkShark.Model.Parkinglots.BuildingTypes;
@@ -8,7 +9,7 @@ using ParkShark.Model.Persons;
 
 namespace ParkShark.Model.Parkinglots
 {
-    public class Parkinglot
+    public class Parkinglot : ModelCreationCheckClass
     {
         public int Id { get; set; }
         public int DivisionId { get; set; }
@@ -21,7 +22,18 @@ namespace ParkShark.Model.Parkinglots
         public Address PlAddress { get; set; }
         public int BuildingTypeId { get; set; }
         public BuildingType PlBuildingType { get; set; }
-        
 
+
+        public void CheckValues()
+        {
+            CheckFilledIn(Name, "Name");
+            CheckFilledIn(Capacity, "Capacity");
+            CheckFilledIn(DivisionId, "DivisionId");
+            CheckFilledIn(PricePerHour, "PricePerHour");
+            CheckFilledIn(ContactPersonId, "ContactPersonId");
+            CheckFilledIn(PlAddress, "Parkinglot-Address");
+            CheckFilledIn(BuildingTypeId, "BuildingTypeId");
+        }
     }
 }
+
