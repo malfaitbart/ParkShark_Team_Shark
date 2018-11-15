@@ -1,10 +1,7 @@
 ﻿using NSubstitute;
 using ParkShark.Model.Divisions;
 using ParkShark.Services.Divisions;
-using ParkShark.Services.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using ParkShark.Services.Repositories.Divisions;
 using Xunit;
 
 namespace ParkShark.Services.Tests.DivisionServices

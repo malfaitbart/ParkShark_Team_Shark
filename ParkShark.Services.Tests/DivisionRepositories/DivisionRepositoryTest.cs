@@ -1,10 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ParkShark.Model.Divisions;
 using ParkShark.Services.Data;
-using ParkShark.Services.Repositories;
+using ParkShark.Services.Repositories.Divisions;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace ParkShark.Services.Tests.DivisionRepositories
@@ -22,14 +20,14 @@ namespace ParkShark.Services.Tests.DivisionRepositories
                 .Options;
 
             var result = false;
-            
+
             //When
             using (var context = new ParkSharkContext(options))
             {
                 IDivisionRepository divisionRepository = new DivisionRepository(context);
                 result = divisionRepository.SaveNewDivision(division);
             }
-            
+
             //Then
             Assert.True(result);
         }
