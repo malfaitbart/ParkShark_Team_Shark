@@ -1,22 +1,34 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using ParkShark.Model.Divisions;
+using ParkShark.Model.Parkinglots;
+using ParkShark.Model.Parkinglots.BuildingTypes;
+using ParkShark.Model.Persons;
 
 namespace ParkShark.Services.Data
 {
     public class ParkSharkContext : DbContext
     {
-        private readonly string connectionString;
+        private readonly string _connectionString;
+        private readonly ILoggerFactory _loggerFactory;
 
-        public ParkSharkContext()
+        public virtual DbSet<Person> Persons { get; set; }
+        public virtual DbSet<Parkinglot> Parkinglots { get; set; }
+
+        public ParkSharkContext(ILoggerFactory loggerFactory = null)
         {
-            connectionString = "Data Source=.\\SQLExpress;Initial Catalog=ParkShark;Integrated Security=True;";
+            _connectionString = "Data Source=.\\SQLExpress;Initial Catalog=ParkShark;Integrated Security=True;";
+            _loggerFactory = loggerFactory;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
-                .UseSqlServer(this.connectionString);
-
+                .UseSqlServer(this._connectionString);
+            if (_loggerFactory != null)
+            {
+                optionsBuilder.UseLoggerFactory(_loggerFactory);
+            }
             base.OnConfiguring(optionsBuilder);
         }
 
@@ -25,6 +37,60 @@ namespace ParkShark.Services.Data
             modelBuilder.Entity<Division>()
                 .ToTable("Divisions")
                 .HasKey("ID");
+
+            modelBuilder.Entity<Person>()
+                .ToTable("Persons")
+                .HasKey("ID");
+
+            modelBuilder.Entity<Person>()
+                .OwnsOne(person=>person.PersonAddress,
+                    personAddress =>
+                    {
+                        personAddress.Property(prop => prop.StreetName).HasColumnName("StreetName");
+                        personAddress.Property(prop => prop.StreetNumber).HasColumnName("StreetNumber");
+                        personAddress.Property(prop => prop.PostalCode).HasColumnName("PostalCode");
+                        personAddress.Property(prop => prop.CityName).HasColumnName("CityName");
+                    });
+
+            modelBuilder.Entity<Parkinglot>()
+                .ToTable("ParkingLots")
+                .HasKey("ID");
+
+
+            modelBuilder.Entity<BuildingType>()
+                .ToTable("BuildingTypes")
+                .HasKey("ID");
+
+            modelBuilder.Entity<Parkinglot>()
+                .OwnsOne(parkinglot => parkinglot.PlAddress,
+                    plAddress =>
+                    {
+                        plAddress.Property(prop => prop.StreetName).HasColumnName("StreetName");
+                        plAddress.Property(prop => prop.StreetNumber).HasColumnName("StreetNumber");
+                        plAddress.Property(prop => prop.PostalCode).HasColumnName("PostalCode");
+                        plAddress.Property(prop => prop.CityName).HasColumnName("CityName");
+                    });
+
+            modelBuilder.Entity<Parkinglot>()
+                .HasOne(parkinglot => parkinglot.ContactPerson)
+                .WithMany(person => person.Parkinglots)
+                .HasForeignKey(parkinglot => parkinglot.ContactPersonId)
+                .IsRequired();
+
+            modelBuilder.Entity<Parkinglot>()
+                .HasOne(parkinglot => parkinglot.PlBuildingType)
+                .WithMany(buildingType => buildingType.Parkinglots)
+                .HasForeignKey(parkinglot => parkinglot.BuildingTypeId)
+                .IsRequired();
+
+            //TODO Add collection in Devision
+            //public ICollection<Parkinglot> Parkinglots { get; } = new List<Parkinglot>();
+
+            //modelBuilder.Entity<Parkinglot>()
+            //    .HasOne(parkinglot => parkinglot.PlDivision)
+            //    .WithMany(division => division.Parkinglots)
+            //    .HasForeignKey(parkinglot => parkinglot.DivisionId)
+            //    .IsRequired();
 
         }
 

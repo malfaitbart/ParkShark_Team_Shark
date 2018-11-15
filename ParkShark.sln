@@ -17,8 +17,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParkShark.Infrastructure", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParkShark.API", "ParkShark.API\ParkShark.API.csproj", "{434EE825-935F-4833-B91C-3DBB457063BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkShark.Integration.Tests", "ParkShark.Integration.Tests\ParkShark.Integration.Tests.csproj", "{476CF785-4AB2-4F99-B14D-A1A1DCDA38D2}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,10 +51,6 @@ Global
 		{434EE825-935F-4833-B91C-3DBB457063BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{434EE825-935F-4833-B91C-3DBB457063BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{434EE825-935F-4833-B91C-3DBB457063BB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{476CF785-4AB2-4F99-B14D-A1A1DCDA38D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{476CF785-4AB2-4F99-B14D-A1A1DCDA38D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{476CF785-4AB2-4F99-B14D-A1A1DCDA38D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{476CF785-4AB2-4F99-B14D-A1A1DCDA38D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
