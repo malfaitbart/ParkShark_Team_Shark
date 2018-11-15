@@ -14,10 +14,10 @@ namespace ParkShark.Model.Addresses
 
         public void CheckValues()
         {
-            CheckFilledIn(StreetName, "StreetName");
-            CheckFilledIn(StreetNumber, "StreetNumber");
-            CheckFilledIn(PostalCode, "PostalCode");
-            CheckFilledIn(CityName, "CityName");
+            CheckFilledIn(StreetName, "StreetName", this);
+            CheckFilledIn(StreetNumber, "StreetNumber", this);
+            CheckFilledIn(PostalCode, "PostalCode", this);
+            CheckFilledIn(CityName, "CityName", this);
         }
 
 

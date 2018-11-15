@@ -22,13 +22,13 @@ namespace ParkShark.Model.Persons
 
         public void CheckValues()
         {
-            CheckFilledIn(Name, "Name");
+            CheckFilledIn(Name, "Name", this);
             if (MobilePhone == null && Phone == null)
             {
-                CheckFilledIn(MobilePhone, "MobilePhone or Phone");
+                CheckFilledIn(MobilePhone, "MobilePhone or Phone", this);
             }
-            CheckFilledIn(PersonAddress, "Person address");
-            CheckFilledIn(EmailAdress, "Email");
+            CheckFilledIn(PersonAddress, "Person address", this);
+            CheckFilledIn(EmailAdress, "Email", this);
         }
 
  }

@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Parkinglots\" />
+    <ProjectReference Include="..\ParkShark.Model\ParkShark.Model.csproj" />
   </ItemGroup>
 
 </Project>

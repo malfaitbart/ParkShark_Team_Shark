@@ -13,7 +13,7 @@ namespace ParkShark.Model.Parkinglots.BuildingTypes
 
         public void CheckValues()
         {
-            CheckFilledIn(Name, "Name");
+            CheckFilledIn(Name, "Name", this);
         }
     }
 }

@@ -26,13 +26,13 @@ namespace ParkShark.Model.Parkinglots
 
         public void CheckValues()
         {
-            CheckFilledIn(Name, "Name");
-            CheckFilledIn(Capacity, "Capacity");
-            CheckFilledIn(DivisionId, "DivisionId");
-            CheckFilledIn(PricePerHour, "PricePerHour");
-            CheckFilledIn(ContactPersonId, "ContactPersonId");
-            CheckFilledIn(PlAddress, "Parkinglot-Address");
-            CheckFilledIn(BuildingTypeId, "BuildingTypeId");
+            CheckFilledIn(Name, "Name", this);
+            CheckFilledIn(Capacity, "Capacity", this);
+            CheckFilledIn(DivisionId, "DivisionId", this);
+            CheckFilledIn(PricePerHour, "PricePerHour", this);
+            CheckFilledIn(ContactPersonId, "ContactPersonId", this);
+            CheckFilledIn(PlAddress, "Parkinglot-Address", this);
+            CheckFilledIn(BuildingTypeId, "BuildingTypeId", this);
         }
     }
 }
