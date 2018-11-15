@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using NJsonSchema;
 using NSwag.AspNetCore;
 using ParkShark.Infrastructure.Exceptions;
 using ParkShark.Infrastructure.Logging;
+using ParkShark.Services.Data;
+using ParkShark.Services.Divisions;
+using ParkShark.Services.Repositories;
 
 namespace ParkShark.API
 {
@@ -30,6 +28,16 @@ namespace ParkShark.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var options = new DbContextOptionsBuilder<ParkSharkContext>()
+            .UseSqlServer("Data Source=.\\SQLExpress;Initial Catalog=ParkShark;Integrated Security=True;")
+            .Options;
+
+
+            services.AddSingleton<IDivisionRepository, DivisionRepository>();
+            services.AddSingleton<IDivisionService, DivisionService>();
+
+            services.AddTransient<ParkSharkContext>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwagger();
         }

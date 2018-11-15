@@ -5,19 +5,12 @@ namespace ParkShark.Services.Data
 {
     public class ParkSharkContext : DbContext
     {
-        private readonly string connectionString;
-
         public ParkSharkContext()
         {
-            connectionString = "Data Source=.\\SQLExpress;Initial Catalog=ParkShark;Integrated Security=True;";
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public ParkSharkContext(DbContextOptions<ParkSharkContext> options) : base(options)
         {
-            optionsBuilder
-                .UseSqlServer(this.connectionString);
-
-            base.OnConfiguring(optionsBuilder);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -25,8 +18,6 @@ namespace ParkShark.Services.Data
             modelBuilder.Entity<Division>()
                 .ToTable("Divisions")
                 .HasKey("ID");
-
         }
-
     }
 }
