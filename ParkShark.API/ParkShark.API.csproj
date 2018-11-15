@@ -11,6 +11,13 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="NSwag.AspNetCore" Version="11.20.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ParkShark.Infrastructure\ParkShark.Infrastructure.csproj" />
+    <ProjectReference Include="..\ParkShark.Model\ParkShark.Model.csproj" />
+    <ProjectReference Include="..\ParkShark.Services\ParkShark.Services.csproj" />
   </ItemGroup>
 
 </Project>
