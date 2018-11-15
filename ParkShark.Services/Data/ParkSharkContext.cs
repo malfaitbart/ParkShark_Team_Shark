@@ -4,40 +4,17 @@ using ParkShark.Model.Divisions;
 using ParkShark.Model.Parkinglots;
 using ParkShark.Model.Parkinglots.BuildingTypes;
 using ParkShark.Model.Persons;
+using System;
 
 namespace ParkShark.Services.Data
 {
     public class ParkSharkContext : DbContext
     {
-        private readonly ILoggerFactory _loggerFactory;
-
         public virtual DbSet<Person> Persons { get; set; }
         public virtual DbSet<Parkinglot> Parkinglots { get; set; }
 
-        public ParkSharkContext(ILoggerFactory loggerFactory = null)
-        {
-            _loggerFactory = loggerFactory;
-        }
-
         public ParkSharkContext(DbContextOptions<ParkSharkContext> options) : base(options)
         {
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if(optionsBuilder == null)
-            {
-            optionsBuilder
-                .UseSqlServer("Data Source=.\\SQLExpress;Initial Catalog=ParkShark;Integrated Security=True;");
-            }
-
-
-            if (_loggerFactory != null)
-            {
-                optionsBuilder.UseLoggerFactory(_loggerFactory);
-            }
-
-            base.OnConfiguring(optionsBuilder);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
