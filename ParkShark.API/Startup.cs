@@ -12,7 +12,7 @@ using ParkShark.Infrastructure.Exceptions;
 using ParkShark.Infrastructure.Logging;
 using ParkShark.Services.Data;
 using ParkShark.Services.Divisions;
-using ParkShark.Services.Repositories;
+using ParkShark.Services.Repositories.Divisions;
 
 namespace ParkShark.API
 {
@@ -29,6 +29,11 @@ namespace ParkShark.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var options = new DbContextOptionsBuilder<ParkSharkContext>()
+                .UseSqlServer("Data Source=.\\SQLExpress;Initial Catalog=ParkShark;Integrated Security=True;")
+                .Options;
+
+            services.AddSingleton<DbContextOptions<ParkSharkContext>>(options);
 
             services.AddSingleton<IDivisionRepository, DivisionRepository>();
             services.AddSingleton<IDivisionService, DivisionService>();
