@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -6,16 +6,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.4" />
+    <PackageReference Include="microsoft.entityframeworkcore" Version="2.1.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ParkShark.Model\ParkShark.Model.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Microsoft.EntityFrameworkCore">
-      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.entityframeworkcore\2.1.1\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
 </Project>
