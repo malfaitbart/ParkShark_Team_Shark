@@ -9,7 +9,6 @@ namespace ParkShark.Services.Data
 {
     public class ParkSharkContext : DbContext
     {
-        private readonly string _connectionString;
         private readonly ILoggerFactory _loggerFactory;
 
         public virtual DbSet<Person> Persons { get; set; }
@@ -17,7 +16,6 @@ namespace ParkShark.Services.Data
 
         public ParkSharkContext(ILoggerFactory loggerFactory = null)
         {
-            _connectionString = "Data Source=.\\SQLExpress;Initial Catalog=ParkShark;Integrated Security=True;";
             _loggerFactory = loggerFactory;
         }
 
