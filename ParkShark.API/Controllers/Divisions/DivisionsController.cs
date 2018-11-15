@@ -32,7 +32,7 @@ namespace ParkShark.API.Controllers.Divisions
         [HttpPost]
         public ActionResult<DivisionDto> CreateDivision([FromBody]DivisionDto divisionDto)
         {
-            _divisionService.CreateDivision(divisionDto.Name, divisionDto.PersonDirectorId);
+            _divisionService.CreateDivision(divisionDto.Name,divisionDto.OriginalName, divisionDto.DirectorId);
             return Ok(divisionDto);
         }
     }

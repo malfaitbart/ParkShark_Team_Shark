@@ -6,15 +6,11 @@ namespace ParkShark.Model.Divisions
 {
     public class Division
     {
-        public int ID { get; private set; }
-        public string Name { get; private set; }
-        public int PersonDirectorId { get; private set; }
-        public int ParentDivisionId { get; private set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string OriginalName { get; set; }
+        public int PersonDirectorId { get; set; }
+        public int? ParentDivisionId { get; set; }
 
-        public Division(string name, int personDirectorId)
-        {
-            Name = name;
-            PersonDirectorId = personDirectorId;
-        }
     }
 }

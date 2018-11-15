@@ -13,9 +13,15 @@ namespace ParkShark.Services.Services.Divisions
             _divisionRepository = divisionRepository;
         }
 
-        public Division CreateDivision(string name, int DirectorId)
+        public Division CreateDivision(string name, string originalName, int DirectorId, int? parentDivisionId = null)
         {
-            var newdivision = new Division(name, DirectorId);
+            var newdivision = new Division
+            {
+                Name = name,
+                OriginalName = originalName,
+                PersonDirectorId = DirectorId,
+                ParentDivisionId = parentDivisionId
+            };
             _divisionRepository.SaveNewDivision(newdivision);
             return newdivision;
         }

@@ -9,12 +9,23 @@ namespace ParkShark.API.Controllers.Divisions
     {
         public override DivisionDto DomainToDto(Division domainObject)
         {
-            return new DivisionDto(domainObject.Name, domainObject.PersonDirectorId);
+            return new DivisionDto
+            {
+                Name = domainObject.Name,
+                OriginalName = domainObject.OriginalName,
+                DirectorId = domainObject.PersonDirectorId,
+                ParentDivisionId = domainObject.ParentDivisionId
+            };
         }
 
         public override Division DtoToDomain(DivisionDto dtoObject)
         {
-            return new Division(dtoObject.Name, dtoObject.PersonDirectorId);
+            return new Division{
+                Name = dtoObject.Name,
+                OriginalName = dtoObject.OriginalName,
+                PersonDirectorId = dtoObject.DirectorId,
+                ParentDivisionId = dtoObject.ParentDivisionId
+            };
         }
 
         public List<DivisionDto> ListToDtoList(List<Division> allDivisions)

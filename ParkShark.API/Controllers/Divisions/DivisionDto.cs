@@ -3,11 +3,9 @@
     public class DivisionDto
     {
         public string Name { get; set; }
-        public int PersonDirectorId { get; set; }
-        public DivisionDto(string name, int directorId)
-        {
-            Name = name;
-            PersonDirectorId = directorId;
-        }
+        public string OriginalName{ get; set; }
+        public int DirectorId { get; set; }
+        public int? ParentDivisionId { get; set; }
+
     }
 }
