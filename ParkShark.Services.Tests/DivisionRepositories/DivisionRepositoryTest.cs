@@ -31,7 +31,7 @@ namespace ParkShark.Services.Tests.DivisionRepositories
             }
             
             //Then
-            Assert.False(result);
+            Assert.True(result);
         }
     }
 }
