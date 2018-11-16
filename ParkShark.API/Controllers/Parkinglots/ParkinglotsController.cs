@@ -13,7 +13,7 @@ namespace ParkShark.API.Controllers.Parkinglots
         private readonly Mapper<ParkinglotDto, Parkinglot> _parkinglotMapper;
         private readonly IParkinglotService _parkinglotService;
 
-        public ParkinglotsController(ParkinglotMapper parkinglotMapper, IParkinglotService parkinglotService)
+        public ParkinglotsController(Mapper<ParkinglotDto, Parkinglot> parkinglotMapper, IParkinglotService parkinglotService)
         {
             _parkinglotMapper = parkinglotMapper;
             _parkinglotService = parkinglotService;

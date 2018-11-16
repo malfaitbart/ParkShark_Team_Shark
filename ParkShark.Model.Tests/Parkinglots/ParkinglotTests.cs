@@ -19,7 +19,12 @@ namespace ParkShark.Model.Tests.Parkinglots
                 DivisionId = 2,
                 PricePerHour = 3,
                 ContactPersonId = 4,
-                PlAddress = new Address(),
+                PlAddress = new Address {
+                    StreetName = "ljhg",
+                    StreetNumber = "kuh",
+                    PostalCode = "lkjh",
+                    CityName = "lkjh"
+                },
                 BuildingTypeId = 5
             };
 

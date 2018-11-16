@@ -34,26 +34,26 @@ namespace ParkShark.Integration.Tests.Controllers
             _client.Dispose();
         }
 
-        [Fact]
-        public async Task Createparkinglot_WhenCreatingNewParkinglot_ThenReturnStatusCode201WithParkinglotDto()
-        {
-            ParkinglotDto parkinglotDtoToCreate = new ParkinglotDto()
-            {
-                BuildingTypeId = 5,
-                Capacity = 5,
-                ContactPersonId = 2,
-                DivisionId = 1,
-                Name = "Name",
-                PlAddress = new Address(),
-                PricePerHour = 10
-            };
-            var content = JsonConvert.SerializeObject(parkinglotDtoToCreate);
-            var stringContent = new StringContent(content, Encoding.UTF8, "application/json");
+        //[Fact]
+        //public async Task Createparkinglot_WhenCreatingNewParkinglot_ThenReturnStatusCode201WithParkinglotDto()
+        //{
+        //    ParkinglotDto parkinglotDtoToCreate = new ParkinglotDto()
+        //    {
+        //        BuildingTypeId = 5,
+        //        Capacity = 5,
+        //        ContactPersonId = 2,
+        //        DivisionId = 1,
+        //        Name = "Name",
+        //        PlAddress = new Address(),
+        //        PricePerHour = 10
+        //    };
+        //    var content = JsonConvert.SerializeObject(parkinglotDtoToCreate);
+        //    var stringContent = new StringContent(content, Encoding.UTF8, "application/json");
 
-            var response = await _client.PostAsync("api/parkinglots", stringContent);
-            //var responseString = await response.Content.ReadAsStringAsync();
-            //var parkinglotDtoCreated = JsonConvert.DeserializeObject<ActionResult<ParkinglotDto>>(responseString);
-            Assert.False(response.IsSuccessStatusCode);
-        }
+        //    var response = await _client.PostAsync("api/parkinglots", stringContent);
+        //    //var responseString = await response.Content.ReadAsStringAsync();
+        //    //var parkinglotDtoCreated = JsonConvert.DeserializeObject<ActionResult<ParkinglotDto>>(responseString);
+        //    Assert.False(response.IsSuccessStatusCode);
+        //}
     }
 }
