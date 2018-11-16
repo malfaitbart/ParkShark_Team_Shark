@@ -10,10 +10,10 @@ namespace ParkShark.API.Controllers.Parkinglots
     [Route("api/[controller]")]
     public class ParkinglotsController : ControllerBase
     {
-        private readonly Mapper<ParkinglotDto, Parkinglot> _parkinglotMapper;
+        private readonly ParkinglotMapper _parkinglotMapper;
         private readonly IParkinglotService _parkinglotService;
 
-        public ParkinglotsController(Mapper<ParkinglotDto, Parkinglot> parkinglotMapper, IParkinglotService parkinglotService)
+        public ParkinglotsController(ParkinglotMapper parkinglotMapper, IParkinglotService parkinglotService)
         {
             _parkinglotMapper = parkinglotMapper;
             _parkinglotService = parkinglotService;

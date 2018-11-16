@@ -9,6 +9,7 @@ namespace ParkShark.Services.Data
         {
             var options = new DbContextOptionsBuilder<ParkSharkContext>()
                 .UseSqlServer("Data Source=.\\SQLExpress;Initial Catalog=ParkShark;Integrated Security=True;")
+                .EnableSensitiveDataLogging()
                 .Options;
 
             return new ParkSharkContext(options);

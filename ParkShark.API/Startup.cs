@@ -48,8 +48,8 @@ namespace ParkShark.API
             services.AddSingleton<IParkinglotService, ParkinglotService>();
 
 
-            services.AddSingleton<Mapper<ParkinglotDto, Parkinglot>>();
-            services.AddSingleton<Mapper<DivisionDto, Division>>();
+            services.AddSingleton<ParkinglotMapper>();
+            services.AddSingleton<DivisionMapper>();
 
             services.AddTransient<ParkSharkContext>();
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Mail;
 using System.Text;
 using ParkShark.Infrastructure.Exceptions;
 using ParkShark.Model.Addresses;
@@ -30,8 +31,35 @@ namespace ParkShark.Model.Persons
                 CheckFilledIn(MobilePhone, "MobilePhone or Phone", this);
             }
             PersonAddress.CheckValues();
-            CheckFilledIn(EmailAdress, "Email", this);
+            CheckEmail(EmailAdress);
+            //CheckFilledIn(EmailAdress, "Email", this);
         }
 
- }
+        private void CheckEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                throw new EntityNotValidException($"Email is required", this);
+            }
+
+            if (!IsEmailValid(email))
+            {
+                throw new EntityNotValidException($" not a correct Email-format", this);
+            }
+        }
+
+        private bool IsEmailValid(string email)
+        {
+            try
+            {
+                MailAddress m = new MailAddress(email);
+                return true;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
+        }
+
+    }
 }

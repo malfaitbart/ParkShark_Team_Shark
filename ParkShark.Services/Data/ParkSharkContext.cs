@@ -6,7 +6,7 @@ using ParkShark.Model.Persons;
 
 namespace ParkShark.Services.Data
 {
-    public class ParkSharkContext : DbContext
+    public partial class ParkSharkContext : DbContext
     {
         public virtual DbSet<Division> Divisions { get; set; }
         public virtual DbSet<Person> Persons { get; set; }
@@ -86,6 +86,10 @@ namespace ParkShark.Services.Data
             modelBuilder.Entity<BuildingType>()
                 .ToTable("BuildingTypes")
                 .HasKey("Id");
+
+            base.OnModelCreating(modelBuilder);
+
+            SeedData(modelBuilder);
         }
     }
 }

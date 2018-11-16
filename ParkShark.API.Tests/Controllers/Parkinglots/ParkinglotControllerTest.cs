@@ -15,12 +15,12 @@ namespace ParkShark.API.Tests.Controllers.Parkinglots
     public class ParkinglotControllerTest
     {
         private readonly IParkinglotService _parkinglotService;
-        private readonly Mapper<ParkinglotDto, Parkinglot> _parkinglotMapper;
+        private readonly ParkinglotMapper _parkinglotMapper;
         private readonly ParkinglotsController _parkinglotController;
         public ParkinglotControllerTest()
         {
 
-            _parkinglotMapper = Substitute.For<Mapper<ParkinglotDto, Parkinglot>>();
+            _parkinglotMapper = Substitute.For<ParkinglotMapper>();
             _parkinglotService = Substitute.For<IParkinglotService>();
             _parkinglotController = new ParkinglotsController(_parkinglotMapper, _parkinglotService); 
         }
