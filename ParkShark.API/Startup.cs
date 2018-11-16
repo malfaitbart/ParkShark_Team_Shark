@@ -8,11 +8,14 @@ using Microsoft.Extensions.Logging;
 using NJsonSchema;
 using NSwag.AspNetCore;
 using ParkShark.API.Controllers.Divisions;
+using ParkShark.API.Controllers.Parkinglots;
 using ParkShark.Infrastructure.Exceptions;
 using ParkShark.Infrastructure.Logging;
 using ParkShark.Services.Data;
 using ParkShark.Services.Services.Divisions;
 using ParkShark.Services.Repositories.Divisions;
+using ParkShark.Services.Repositories.Parkinglots;
+using ParkShark.Services.Services.Parkinglots;
 
 namespace ParkShark.API
 {
@@ -36,9 +39,13 @@ namespace ParkShark.API
             services.AddSingleton<DbContextOptions<ParkSharkContext>>(options);
 
             services.AddSingleton<IDivisionRepository, DivisionRepository>();
+            services.AddSingleton<IParkinglotRepository, ParkinglotRepository>();
+
             services.AddSingleton<IDivisionService, DivisionService>();
+            services.AddSingleton<IParkinglotService, ParkinglotService>();
 
             services.AddSingleton<DivisionMapper>();
+            services.AddSingleton<ParkinglotMapper>();
 
             services.AddTransient<ParkSharkContext>();
 
@@ -63,7 +70,7 @@ namespace ParkShark.API
                 settings.GeneratorSettings.DefaultPropertyNameHandling =
                     PropertyNameHandling.CamelCase;
             });
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             app.UseMvc();
         }

@@ -27,7 +27,7 @@ namespace ParkShark.Model.Persons
             {
                 CheckFilledIn(MobilePhone, "MobilePhone or Phone", this);
             }
-            CheckFilledIn(PersonAddress, "Person address", this);
+            PersonAddress.CheckValues();
             CheckFilledIn(EmailAdress, "Email", this);
         }
 

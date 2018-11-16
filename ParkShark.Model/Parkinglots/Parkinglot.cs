@@ -31,7 +31,8 @@ namespace ParkShark.Model.Parkinglots
             CheckFilledIn(DivisionId, "DivisionId", this);
             CheckFilledIn(PricePerHour, "PricePerHour", this);
             CheckFilledIn(ContactPersonId, "ContactPersonId", this);
-            CheckFilledIn(PlAddress, "Parkinglot-Address", this);
+            PlAddress.CheckValues();
+            //CheckFilledIn(PlAddress, "Parkinglot-Address", this);
             CheckFilledIn(BuildingTypeId, "BuildingTypeId", this);
         }
     }
