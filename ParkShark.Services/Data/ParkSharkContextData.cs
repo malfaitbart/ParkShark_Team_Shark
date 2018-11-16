@@ -14,15 +14,6 @@ namespace ParkShark.Services.Data
 {
     class ParkSharkData
     {
-        static Address addressTemp = new Address()
-        {
-            CityName = "City1",
-            PostalCode = "Postalcode1",
-            StreetName = "Street1",
-            StreetNumber = "1"
-        };
-
-        internal Address address1 = addressTemp;
  
 
         internal Person person1 = new Person()
@@ -55,12 +46,12 @@ namespace ParkShark.Services.Data
 
         internal Parkinglot parkinglot1 = new Parkinglot()
         {
+            Id =1,
             BuildingTypeId = 1,
             Capacity = 50,
             ContactPersonId = 1,
             DivisionId = 1,
             Name = "Lot1",
-            PlAddress = addressTemp
    
         };
     }
@@ -83,30 +74,31 @@ namespace ParkShark.Services.Data
                 });
             });
 
-            //modelBuilder.Entity<Person>(p => { p.OwnsOne(a => a.PersonAddress).HasData(seedData.address1).HasData(seedData.person1)
-            //    ; });
 
+            modelBuilder.Entity<BuildingType>().HasData(new List<BuildingType>()
+            {
+                seedData.buildingType1,
+                seedData.buildingType2
+            }.ToArray());
 
-            //    p => p.PersonAddress).HasData(new List<Person>()
-            //{
-            //    seedData.person1
-            //}.ToArray());
+            modelBuilder.Entity<Division>().HasData(new List<Division>()
+            {
+                seedData.division1
+            }.ToArray());
 
-            //modelBuilder.Entity<BuildingType>().HasData(new List<BuildingType>()
-            //{
-            //    seedData.buildingType1,
-            //    seedData.buildingType2
-            //});
+            modelBuilder.Entity<Parkinglot>(p =>
+            {
+                p.HasData(seedData.parkinglot1);
+                p.OwnsOne(pp => pp.PlAddress).HasData(new
+                {
+                    StreetNumber = "1",
+                    StreetName = "tt",
+                    CityName = "er",
+                    PostalCode = "4153",
+                    ParkinglotId = 1
+                });
+            });
 
-            //modelBuilder.Entity<Division>().HasData(new List<Division>()
-            //{
-            //    seedData.division1
-            //});
-
-            //modelBuilder.Entity<Parkinglot>().HasData(new List<Parkinglot>()
-            //{
-            //    seedData.parkinglot1
-            //});
         }
 
     }

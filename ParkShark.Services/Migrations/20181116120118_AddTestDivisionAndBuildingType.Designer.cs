@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ParkShark.Services.Data;
 
 namespace ParkShark.Services.Migrations
 {
     [DbContext(typeof(ParkSharkContext))]
-    partial class ParkSharkContextModelSnapshot : ModelSnapshot
+    [Migration("20181116120118_AddTestDivisionAndBuildingType")]
+    partial class AddTestDivisionAndBuildingType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,10 +93,6 @@ namespace ParkShark.Services.Migrations
                     b.HasIndex("DivisionId");
 
                     b.ToTable("ParkingLots");
-
-                    b.HasData(
-                        new { Id = 1, BuildingTypeId = 1, Capacity = 50, ContactPersonId = 1, DivisionId = 1, Name = "Lot1", PricePerHour = 0m }
-                    );
                 });
 
             modelBuilder.Entity("ParkShark.Model.Persons.Person", b =>
@@ -180,10 +178,6 @@ namespace ParkShark.Services.Migrations
                                 .WithOne("PlAddress")
                                 .HasForeignKey("ParkShark.Model.Addresses.Address", "ParkinglotId")
                                 .OnDelete(DeleteBehavior.Cascade);
-
-                            b1.HasData(
-                                new { ParkinglotId = 1, CityName = "er", PostalCode = "4153", StreetName = "tt", StreetNumber = "1" }
-                            );
                         });
                 });
 
