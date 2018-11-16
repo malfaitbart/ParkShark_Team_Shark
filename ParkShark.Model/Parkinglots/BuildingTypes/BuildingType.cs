@@ -9,7 +9,6 @@ namespace ParkShark.Model.Parkinglots.BuildingTypes
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<Parkinglot> Parkinglots { get; } = new List<Parkinglot>();
 
         public void CheckValues()
         {

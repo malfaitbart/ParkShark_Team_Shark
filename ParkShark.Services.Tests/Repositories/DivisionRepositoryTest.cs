@@ -18,7 +18,7 @@ namespace ParkShark.Services.Tests.Repositories.DivisionRepositories
             {
                 Name = "test",
                 OriginalName = "original",
-                PersonDirectorId = 0,
+                DirectorID = 0,
                 ParentDivisionId = null
             };
 
@@ -46,13 +46,13 @@ namespace ParkShark.Services.Tests.Repositories.DivisionRepositories
             {
                 Name = "test",
                 OriginalName = "original",
-                PersonDirectorId = 0,
+                DirectorID = 0,
             };
             var subdivision = new Division
             {
                 Name = "test",
                 OriginalName = "original",
-                PersonDirectorId = 0,
+                DirectorID = 0,
                 ParentDivisionId = division.ID
             };
 
@@ -81,7 +81,7 @@ namespace ParkShark.Services.Tests.Repositories.DivisionRepositories
             var division = new Division{
                 Name = "test",
                 OriginalName = "original",
-                PersonDirectorId = 0,
+                DirectorID = 0,
                 ParentDivisionId = null
             };
 

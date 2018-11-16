@@ -1,10 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using ParkShark.Model.Divisions;
 using ParkShark.Model.Parkinglots;
 using ParkShark.Model.Parkinglots.BuildingTypes;
 using ParkShark.Model.Persons;
-using System;
 
 namespace ParkShark.Services.Data
 {
@@ -24,12 +22,19 @@ namespace ParkShark.Services.Data
                 .ToTable("Divisions")
                 .HasKey("ID");
 
+            modelBuilder.Entity<Division>()
+                .HasOne(d => d.Director)
+                .WithMany()
+                .HasForeignKey(d => d.DirectorID)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<Person>()
                 .ToTable("Persons")
                 .HasKey("Id");
 
             modelBuilder.Entity<Person>()
-                .OwnsOne(person=>person.PersonAddress,
+                .OwnsOne(person => person.PersonAddress,
                     personAddress =>
                     {
                         personAddress.Property(prop => prop.StreetName).HasColumnName("StreetName");
@@ -40,11 +45,6 @@ namespace ParkShark.Services.Data
 
             modelBuilder.Entity<Parkinglot>()
                 .ToTable("ParkingLots")
-                .HasKey("Id");
-
-
-            modelBuilder.Entity<BuildingType>()
-                .ToTable("BuildingTypes")
                 .HasKey("Id");
 
             modelBuilder.Entity<Parkinglot>()
@@ -58,26 +58,27 @@ namespace ParkShark.Services.Data
                     });
 
             modelBuilder.Entity<Parkinglot>()
-                .HasOne(parkinglot => parkinglot.ContactPerson)
-                .WithMany(person => person.Parkinglots)
-                .HasForeignKey(parkinglot => parkinglot.ContactPersonId)
+                .HasOne(pl => pl.PlDivision)
+                .WithMany(d => d.Parkinglots)
+                .HasForeignKey(pl => pl.DivisionId)
                 .IsRequired();
 
             modelBuilder.Entity<Parkinglot>()
-                .HasOne(parkinglot => parkinglot.PlBuildingType)
-                .WithMany(buildingType => buildingType.Parkinglots)
-                .HasForeignKey(parkinglot => parkinglot.BuildingTypeId)
+                .HasOne(pl => pl.PlBuildingType)
+                .WithMany()
+                .HasForeignKey(pl => pl.BuildingTypeId)
                 .IsRequired();
 
-            //TODO Add collection in Devision
-            //public ICollection<Parkinglot> Parkinglots { get; } = new List<Parkinglot>();
+            modelBuilder.Entity<Parkinglot>()
+                .HasOne(pl => pl.ContactPerson)
+                .WithMany()
+                .HasForeignKey(pl => pl.ContactPersonId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
 
-            //modelBuilder.Entity<Parkinglot>()
-            //    .HasOne(parkinglot => parkinglot.PlDivision)
-            //    .WithMany(division => division.Parkinglots)
-            //    .HasForeignKey(parkinglot => parkinglot.DivisionId)
-            //    .IsRequired();
-
+            modelBuilder.Entity<BuildingType>()
+                .ToTable("BuildingTypes")
+                .HasKey("Id");
         }
     }
 }
