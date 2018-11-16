@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ParkShark.Services.Data;
 
 namespace ParkShark.Services.Migrations
 {
     [DbContext(typeof(ParkSharkContext))]
-    partial class ParkSharkContextModelSnapshot : ModelSnapshot
+    [Migration("20181116093839_08")]
+    partial class _08
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

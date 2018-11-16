@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ParkShark.Services.Data;
 
 namespace ParkShark.Services.Migrations
 {
     [DbContext(typeof(ParkSharkContext))]
-    partial class ParkSharkContextModelSnapshot : ModelSnapshot
+    [Migration("20181116093656_07")]
+    partial class _07
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -118,8 +120,7 @@ namespace ParkShark.Services.Migrations
 
                     b.HasOne("ParkShark.Model.Divisions.Division", "ParentDivision")
                         .WithMany("Divisions")
-                        .HasForeignKey("ParentDivisionId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("ParentDivisionId");
                 });
 
             modelBuilder.Entity("ParkShark.Model.Parkinglots.Parkinglot", b =>

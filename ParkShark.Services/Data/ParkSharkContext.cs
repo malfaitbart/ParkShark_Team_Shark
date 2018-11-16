@@ -23,6 +23,13 @@ namespace ParkShark.Services.Data
                 .HasKey("ID");
 
             modelBuilder.Entity<Division>()
+                .HasOne(d => d.ParentDivision)
+                .WithMany(pd => pd.Divisions)
+                .HasForeignKey(d => d.ParentDivisionId)
+                .OnDelete(DeleteBehavior.Restrict);
+                
+
+            modelBuilder.Entity<Division>()
                 .HasOne(d => d.Director)
                 .WithMany()
                 .HasForeignKey(d => d.DirectorID)

@@ -14,6 +14,8 @@ namespace ParkShark.Model.Divisions
         public int DirectorID { get; set; }
         public Person Director { get; set; }
         public int? ParentDivisionId { get; set; }
+        public Division ParentDivision { get; set; }
         public ICollection<Parkinglot> Parkinglots { get; } = new List<Parkinglot>();
+        public ICollection<Division> Divisions { get; } = new List<Division>();
     }
 }
