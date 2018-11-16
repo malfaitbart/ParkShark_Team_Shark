@@ -19,7 +19,7 @@ namespace ParkShark.Services.Services.Divisions
             {
                 Name = name,
                 OriginalName = originalName,
-                PersonDirectorId = DirectorId,
+                DirectorID = DirectorId,
                 ParentDivisionId = parentDivisionId
             };
             _divisionRepository.SaveNewDivision(newdivision);

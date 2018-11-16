@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using ParkShark.Infrastructure.Exceptions;
 using ParkShark.Model.Addresses;
+using ParkShark.Model.Divisions;
 using ParkShark.Model.Parkinglots;
 
 namespace ParkShark.Model.Persons
@@ -18,7 +19,8 @@ namespace ParkShark.Model.Persons
         public int? LicensePlateId { get; set; }
         public int? MembershipId { get; set; }
         public DateTime? RegistrationDate { get; set; }
-        public ICollection<Parkinglot> Parkinglots { get; } = new List<Parkinglot>();
+        //public ICollection<Parkinglot> Parkinglots { get; } = new List<Parkinglot>();
+        //public ICollection<Division> Divisions { get; } = new List<Division>();
 
         public void CheckValues()
         {
