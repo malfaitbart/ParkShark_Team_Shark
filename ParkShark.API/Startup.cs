@@ -19,6 +19,9 @@ using ParkShark.Services.Services.Parkinglots;
 using ParkShark.Model.Parkinglots;
 using ParkShark.Model.Divisions;
 using ParkShark.Infrastructure.DtoMapper;
+using ParkShark.Services.Repositories.Persons;
+using ParkShark.Services.Services.Persons;
+using ParkShark.API.Controllers.Persons;
 
 namespace ParkShark.API
 {
@@ -43,13 +46,15 @@ namespace ParkShark.API
 
             services.AddSingleton<IDivisionRepository, DivisionRepository>();
             services.AddSingleton<IParkinglotRepository, ParkinglotRepository>();
+            services.AddSingleton<IPersonRepository, PersonRepository>();
 
             services.AddSingleton<IDivisionService, DivisionService>();
             services.AddSingleton<IParkinglotService, ParkinglotService>();
-
+            services.AddSingleton<IPersonService, PersonService>();
 
             services.AddSingleton<ParkinglotMapper>();
             services.AddSingleton<DivisionMapper>();
+            services.AddSingleton<PersonMapper>();
 
             services.AddTransient<ParkSharkContext>();
 

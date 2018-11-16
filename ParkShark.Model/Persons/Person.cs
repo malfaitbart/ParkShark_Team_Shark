@@ -6,6 +6,7 @@ using ParkShark.Infrastructure.Exceptions;
 using ParkShark.Model.Addresses;
 using ParkShark.Model.Divisions;
 using ParkShark.Model.Parkinglots;
+using ParkShark.Model.Persons.LicensePlates;
 
 namespace ParkShark.Model.Persons
 {
@@ -17,7 +18,7 @@ namespace ParkShark.Model.Persons
         public string Phone { get; set; }
         public Address PersonAddress { get; set; }
         public string EmailAdress { get; set; }
-        public int? LicensePlateId { get; set; }
+        public LicensePlate LicensePlate { get; set; }
         public int? MembershipId { get; set; }
         public DateTime? RegistrationDate { get; set; }
         //public ICollection<Parkinglot> Parkinglots { get; } = new List<Parkinglot>();
