@@ -35,11 +35,12 @@ namespace ParkShark.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var options = new DbContextOptionsBuilder<ParkSharkContext>()
-                .UseSqlServer("Data Source=.\\SQLExpress;Initial Catalog=ParkShark;Integrated Security=True;")
-                .Options;
+            ConfigureParkSharkServices(services);
+        }
 
-            services.AddSingleton<DbContextOptions<ParkSharkContext>>(options);
+        protected virtual void ConfigureParkSharkServices(IServiceCollection services)
+        {
+            services.AddSingleton<DbContextOptions<ParkSharkContext>>(ConfigureDbContext());
 
             services.AddSingleton<IDivisionRepository, DivisionRepository>();
             services.AddSingleton<IParkinglotRepository, ParkinglotRepository>();
@@ -55,6 +56,13 @@ namespace ParkShark.API
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwagger();
+        }
+
+        protected virtual DbContextOptions<ParkSharkContext> ConfigureDbContext()
+        {
+            return new DbContextOptionsBuilder<ParkSharkContext>()
+                .UseSqlServer("Data Source=.\\SQLExpress;Initial Catalog=ParkShark;Integrated Security=True;")
+                .Options;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
