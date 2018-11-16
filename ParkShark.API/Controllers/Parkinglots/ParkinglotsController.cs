@@ -2,6 +2,7 @@
 using ParkShark.Infrastructure.DtoMapper;
 using ParkShark.Model.Parkinglots;
 using ParkShark.Services.Services.Parkinglots;
+using System.Collections.Generic;
 
 namespace ParkShark.API.Controllers.Parkinglots
 {
@@ -17,6 +18,14 @@ namespace ParkShark.API.Controllers.Parkinglots
         {
             _parkinglotMapper = parkinglotMapper;
             _parkinglotService = parkinglotService;
+        }
+
+        [HttpGet]
+        public ActionResult<List<ParkinglotDto>> GetAllParkinglots()
+        {
+            var allParkinglots = _parkinglotService.GetAll();
+            var allParkinglotsDto = _parkinglotMapper.ListToDtoList(allParkinglots);
+            return Ok(allParkinglotsDto);
         }
 
         [HttpPost]

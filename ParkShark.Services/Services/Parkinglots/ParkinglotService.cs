@@ -21,5 +21,10 @@ namespace ParkShark.Services.Services.Parkinglots
             _parkinglotRepository.SaveNewParkinglot(newParkinglot);
             return newParkinglot;
         }
+
+        public List<Parkinglot> GetAll()
+        {
+            return _parkinglotRepository.GetAllParkinglots();
+        }
     }
 }

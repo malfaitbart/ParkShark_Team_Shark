@@ -8,5 +8,6 @@ namespace ParkShark.Services.Services.Parkinglots
     public interface IParkinglotService
     {
         Parkinglot CreateParkinglot(Parkinglot newParkinglot);
+        List<Parkinglot> GetAll();
     }
 }
