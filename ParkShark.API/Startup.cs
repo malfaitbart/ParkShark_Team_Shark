@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -24,10 +25,19 @@ namespace ParkShark.API
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration, ILoggerFactory logFactory)
+        //private string _connectionstring = "(LocalDb)\\MSSQLLocalDb";
+        private string _connectionstring = ".\\SQLExpress";
+        //TODO Zie: https://docs.microsoft.com/en-us/aspnet/core/fundamentals/environments?view=aspnetcore-2.1
+        public Startup(IConfiguration configuration, ILoggerFactory logFactory, IHostingEnvironment env)
         {
             Configuration = configuration;
             ApplicationLogging.LoggerFactory = logFactory;
+            //var foo = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            var foo = Environment.GetEnvironmentVariable("ParkSharkSql", EnvironmentVariableTarget.User);
+            if (foo != null && foo.Equals("SqlServer"))
+            {
+                _connectionstring = "(LocalDb)\\MSSQLLocalDb";
+            }
         }
 
         public IConfiguration Configuration { get; }
@@ -60,8 +70,10 @@ namespace ParkShark.API
 
         protected virtual DbContextOptions<ParkSharkContext> ConfigureDbContext()
         {
+            
             return new DbContextOptionsBuilder<ParkSharkContext>()
-                .UseSqlServer("Data Source=.\\SQLExpress;Initial Catalog=ParkShark;Integrated Security=True;")
+                .UseSqlServer($"Data Source={_connectionstring};Initial Catalog=ParkShark;Integrated Security=True;")
+                //(LocalDb)\\MSSQLLocalDb
                 .Options;
         }
 
@@ -75,7 +87,7 @@ namespace ParkShark.API
             else
             {
                 app.UseHsts();
-            }
+            }         
 
             app.UseSwaggerUi3WithApiExplorer(settings =>
             {
