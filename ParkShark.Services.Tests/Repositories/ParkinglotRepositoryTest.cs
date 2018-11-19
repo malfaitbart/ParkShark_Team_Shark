@@ -34,5 +34,30 @@ namespace ParkShark.Services.Tests.Repositories
             //Then
             Assert.True(result);
         }
+
+        [Fact]
+        public void GivenListOfParkinglots_WhenGetAllParkinglot_ThenReturnListOfParkinglots()
+        {
+            //Given
+            var parkinglot = new Parkinglot();
+
+            var options = new DbContextOptionsBuilder<ParkSharkContext>()
+                .UseInMemoryDatabase("parkshark" + Guid.NewGuid().ToString("n"))
+                .Options;
+
+            
+
+            //When
+            using (var context = new ParkSharkContext(options))
+            {
+                IParkinglotRepository parkinglotRepository = new ParkinglotRepository(context);
+              var result = parkinglotRepository.GetAllParkinglots();
+
+                //Then
+                Assert.IsType<List<Parkinglot>>(result);
+            }
+
+            
+        }
     }
 }

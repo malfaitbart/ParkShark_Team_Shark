@@ -1,5 +1,6 @@
 ﻿using ParkShark.Infrastructure.DtoMapper;
 using ParkShark.Model.Parkinglots;
+using System.Collections.Generic;
 
 namespace ParkShark.API.Controllers.Parkinglots
 {
@@ -35,6 +36,16 @@ namespace ParkShark.API.Controllers.Parkinglots
             };
             newParkinglot.CheckValues();
             return newParkinglot;
+        }
+
+        public List<ParkinglotDto> ListToDtoList(List<Parkinglot> allParkinglots)
+        {
+            var output = new List<ParkinglotDto>();
+            foreach (var division in allParkinglots)
+            {
+                output.Add(DomainToDto(division));
+            }
+            return output;
         }
     }
 }

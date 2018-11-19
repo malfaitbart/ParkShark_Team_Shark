@@ -8,5 +8,6 @@ namespace ParkShark.Services.Repositories.Parkinglots
     public interface IParkinglotRepository
     {
         bool SaveNewParkinglot(Parkinglot parkinglot);
+        List<Parkinglot> GetAllParkinglots();
     }
 }
