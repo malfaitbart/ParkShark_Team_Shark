@@ -27,7 +27,7 @@ namespace ParkShark.Services.Data
                 .WithMany(pd => pd.Divisions)
                 .HasForeignKey(d => d.ParentDivisionId)
                 .OnDelete(DeleteBehavior.Restrict);
-                
+
 
             modelBuilder.Entity<Division>()
                 .HasOne(d => d.Director)
@@ -42,12 +42,20 @@ namespace ParkShark.Services.Data
 
             modelBuilder.Entity<Person>()
                 .OwnsOne(person => person.PersonAddress,
-                    personAddress =>
+                    pa =>
                     {
-                        personAddress.Property(prop => prop.StreetName).HasColumnName("StreetName");
-                        personAddress.Property(prop => prop.StreetNumber).HasColumnName("StreetNumber");
-                        personAddress.Property(prop => prop.PostalCode).HasColumnName("PostalCode");
-                        personAddress.Property(prop => prop.CityName).HasColumnName("CityName");
+                        pa.Property(prop => prop.StreetName).HasColumnName("StreetName");
+                        pa.Property(prop => prop.StreetNumber).HasColumnName("StreetNumber");
+                        pa.Property(prop => prop.PostalCode).HasColumnName("PostalCode");
+                        pa.Property(prop => prop.CityName).HasColumnName("CityName");
+                    });
+
+            modelBuilder.Entity<Person>()
+                .OwnsOne(person => person.LicensePlate,
+                    licensePlate =>
+                    {
+                        licensePlate.Property(prop => prop.LicensePlateNumber).HasColumnName("LicensePlateNumber");
+                        licensePlate.Property(prop => prop.Country).HasColumnName("Country");
                     });
 
             modelBuilder.Entity<Parkinglot>()

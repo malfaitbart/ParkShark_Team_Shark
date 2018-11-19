@@ -1,28 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using ParkShark.Model.Addresses;
 using ParkShark.Model.Divisions;
 using ParkShark.Model.Parkinglots;
 using ParkShark.Model.Parkinglots.BuildingTypes;
 using ParkShark.Model.Persons;
+using System.Collections.Generic;
 
 namespace ParkShark.Services.Data
 {
     class ParkSharkData
     {
- 
+
 
         internal Person person1 = new Person()
         {
             Id = 1,
-           
             Name = "Person1",
             MobilePhone = "MobilePhone1",
+            //PersonAddress = new Address
+            //{
+            //    StreetName = "teststraat",
+            //    StreetNumber = "10",
+            //    PostalCode = "1000",
+            //    CityName = "bxl"
+            //},
             EmailAdress = "EmailAdress@test.be",
+            //LicensePlate = new LicensePlate
+            //{
+            //    LicensePlateNumber = "000-000",
+            //    Country = "BE"
+            //}
         };
 
         internal BuildingType buildingType1 = new BuildingType()
@@ -46,13 +53,19 @@ namespace ParkShark.Services.Data
 
         internal Parkinglot parkinglot1 = new Parkinglot()
         {
-            Id =1,
+            Id = 1,
             BuildingTypeId = 1,
             Capacity = 50,
             ContactPersonId = 1,
             DivisionId = 1,
             Name = "Lot1",
-   
+            //PlAddress = new Address
+            //{
+            //    StreetName = "azerty",
+            //    StreetNumber = "1",
+            //    PostalCode = "1234",
+            //    CityName = "kor"
+            //}
         };
     }
 
@@ -61,6 +74,7 @@ namespace ParkShark.Services.Data
         protected void SeedData(ModelBuilder modelBuilder)
         {
             var seedData = new ParkSharkData();
+
             modelBuilder.Entity<Person>(p =>
             {
                 p.HasData(seedData.person1);
@@ -72,8 +86,13 @@ namespace ParkShark.Services.Data
                     PostalCode = "4153",
                     PersonId = 1
                 });
+                p.OwnsOne(pp => pp.LicensePlate).HasData(new
+                {
+                    LicensePlateNumber = "000-000",
+                    Country = "BXL",
+                    PersonId = 1
+                });
             });
-
 
             modelBuilder.Entity<BuildingType>().HasData(new List<BuildingType>()
             {
