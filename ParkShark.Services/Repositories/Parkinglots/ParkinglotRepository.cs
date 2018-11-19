@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 using ParkShark.Model.Parkinglots;
 using ParkShark.Services.Data;
 
@@ -18,12 +19,12 @@ namespace ParkShark.Services.Repositories.Parkinglots
 
         public List<Parkinglot> GetAllParkinglots()
         {
-            return _context.Parkinglots.ToList();
+            return _context.Parkinglots.AsNoTracking().ToList();
         }
 
         public Parkinglot GetOneParkinglot(int id)
         {
-            return _context.Parkinglots.FirstOrDefault(parkinglot => parkinglot.Id == id);
+            return _context.Parkinglots.AsNoTracking().FirstOrDefault(parkinglot => parkinglot.Id == id);
         }
 
         public bool SaveNewParkinglot(Parkinglot parkinglot)

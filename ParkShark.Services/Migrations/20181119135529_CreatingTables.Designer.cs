@@ -10,8 +10,8 @@ using ParkShark.Services.Data;
 namespace ParkShark.Services.Migrations
 {
     [DbContext(typeof(ParkSharkContext))]
-    [Migration("20181116093839_08")]
-    partial class _08
+    [Migration("20181119135529_CreatingTables")]
+    partial class CreatingTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,30 @@ namespace ParkShark.Services.Migrations
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("ParkShark.Model.Allocations.Allocation", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime?>("EndTime");
+
+                    b.Property<int>("MemberPeronId");
+
+                    b.Property<int>("ParkinglotId");
+
+                    b.Property<DateTime>("StartingTime");
+
+                    b.Property<int>("Status");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MemberPeronId");
+
+                    b.HasIndex("ParkinglotId");
+
+                    b.ToTable("Allocations");
+                });
 
             modelBuilder.Entity("ParkShark.Model.Divisions.Division", b =>
                 {
@@ -42,6 +66,10 @@ namespace ParkShark.Services.Migrations
                     b.HasIndex("ParentDivisionId");
 
                     b.ToTable("Divisions");
+
+                    b.HasData(
+                        new { ID = 1, DirectorID = 1, Name = "Division1", OriginalName = "Original1" }
+                    );
                 });
 
             modelBuilder.Entity("ParkShark.Model.Parkinglots.BuildingTypes.BuildingType", b =>
@@ -55,6 +83,11 @@ namespace ParkShark.Services.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("BuildingTypes");
+
+                    b.HasData(
+                        new { Id = 1, Name = "Underground" },
+                        new { Id = 2, Name = "AboveGround" }
+                    );
                 });
 
             modelBuilder.Entity("ParkShark.Model.Parkinglots.Parkinglot", b =>
@@ -84,6 +117,10 @@ namespace ParkShark.Services.Migrations
                     b.HasIndex("DivisionId");
 
                     b.ToTable("ParkingLots");
+
+                    b.HasData(
+                        new { Id = 1, BuildingTypeId = 1, Capacity = 50, ContactPersonId = 1, DivisionId = 1, Name = "Lot1", PricePerHour = 0m }
+                    );
                 });
 
             modelBuilder.Entity("ParkShark.Model.Persons.Person", b =>
@@ -93,8 +130,6 @@ namespace ParkShark.Services.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("EmailAdress");
-
-                    b.Property<int?>("LicensePlateId");
 
                     b.Property<int?>("MembershipId");
 
@@ -109,6 +144,23 @@ namespace ParkShark.Services.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Persons");
+
+                    b.HasData(
+                        new { Id = 1, MobilePhone = "000", Name = "test", Phone = "000" }
+                    );
+                });
+
+            modelBuilder.Entity("ParkShark.Model.Allocations.Allocation", b =>
+                {
+                    b.HasOne("ParkShark.Model.Persons.Person", "MemberPerson")
+                        .WithMany()
+                        .HasForeignKey("MemberPeronId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("ParkShark.Model.Parkinglots.Parkinglot", "Parkinglot")
+                        .WithMany()
+                        .HasForeignKey("ParkinglotId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("ParkShark.Model.Divisions.Division", b =>
@@ -165,11 +217,39 @@ namespace ParkShark.Services.Migrations
                                 .WithOne("PlAddress")
                                 .HasForeignKey("ParkShark.Model.Addresses.Address", "ParkinglotId")
                                 .OnDelete(DeleteBehavior.Cascade);
+
+                            b1.HasData(
+                                new { ParkinglotId = 1, CityName = "er", PostalCode = "4153", StreetName = "tt", StreetNumber = "1" }
+                            );
                         });
                 });
 
             modelBuilder.Entity("ParkShark.Model.Persons.Person", b =>
                 {
+                    b.OwnsOne("ParkShark.Model.Persons.LicensePlates.LicensePlate", "LicensePlate", b1 =>
+                        {
+                            b1.Property<int?>("PersonId")
+                                .ValueGeneratedOnAdd()
+                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                            b1.Property<string>("Country")
+                                .HasColumnName("Country");
+
+                            b1.Property<string>("LicensePlateNumber")
+                                .HasColumnName("LicensePlateNumber");
+
+                            b1.ToTable("Persons");
+
+                            b1.HasOne("ParkShark.Model.Persons.Person")
+                                .WithOne("LicensePlate")
+                                .HasForeignKey("ParkShark.Model.Persons.LicensePlates.LicensePlate", "PersonId")
+                                .OnDelete(DeleteBehavior.Cascade);
+
+                            b1.HasData(
+                                new { PersonId = 1, Country = "BXL", LicensePlateNumber = "000-000" }
+                            );
+                        });
+
                     b.OwnsOne("ParkShark.Model.Addresses.Address", "PersonAddress", b1 =>
                         {
                             b1.Property<int>("PersonId")
@@ -194,6 +274,10 @@ namespace ParkShark.Services.Migrations
                                 .WithOne("PersonAddress")
                                 .HasForeignKey("ParkShark.Model.Addresses.Address", "PersonId")
                                 .OnDelete(DeleteBehavior.Cascade);
+
+                            b1.HasData(
+                                new { PersonId = 1, CityName = "er", PostalCode = "4153", StreetName = "tt", StreetNumber = "1" }
+                            );
                         });
                 });
 #pragma warning restore 612, 618

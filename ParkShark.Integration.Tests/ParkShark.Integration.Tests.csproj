@@ -21,4 +21,8 @@
     <ProjectReference Include="..\ParkShark.API\ParkShark.API.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\Allocations\" />
+  </ItemGroup>
+
 </Project>

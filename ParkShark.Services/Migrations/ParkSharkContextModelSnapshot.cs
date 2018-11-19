@@ -19,6 +19,30 @@ namespace ParkShark.Services.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("ParkShark.Model.Allocations.Allocation", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime?>("EndTime");
+
+                    b.Property<int>("MemberPeronId");
+
+                    b.Property<int>("ParkinglotId");
+
+                    b.Property<DateTime>("StartingTime");
+
+                    b.Property<int>("Status");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MemberPeronId");
+
+                    b.HasIndex("ParkinglotId");
+
+                    b.ToTable("Allocations");
+                });
+
             modelBuilder.Entity("ParkShark.Model.Divisions.Division", b =>
                 {
                     b.Property<int>("ID")
@@ -120,8 +144,21 @@ namespace ParkShark.Services.Migrations
                     b.ToTable("Persons");
 
                     b.HasData(
-                        new { Id = 1, EmailAdress = "EmailAdress@test.be", MobilePhone = "MobilePhone1", Name = "Person1" }
+                        new { Id = 1, MobilePhone = "000", Name = "test", Phone = "000" }
                     );
+                });
+
+            modelBuilder.Entity("ParkShark.Model.Allocations.Allocation", b =>
+                {
+                    b.HasOne("ParkShark.Model.Persons.Person", "MemberPerson")
+                        .WithMany()
+                        .HasForeignKey("MemberPeronId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("ParkShark.Model.Parkinglots.Parkinglot", "Parkinglot")
+                        .WithMany()
+                        .HasForeignKey("ParkinglotId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("ParkShark.Model.Divisions.Division", b =>

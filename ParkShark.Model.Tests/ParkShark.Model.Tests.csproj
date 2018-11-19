@@ -19,4 +19,8 @@
     <ProjectReference Include="..\ParkShark.Model\ParkShark.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Allocations\" />
+  </ItemGroup>
+
 </Project>
