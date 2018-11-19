@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +13,7 @@ namespace ParkShark.Integration.Tests
 {
     public class TestStartup : Startup
     {
-        public TestStartup(IConfiguration configuration, ILoggerFactory logFactory) : base(configuration, logFactory)
+        public TestStartup(IConfiguration configuration, ILoggerFactory logFactory, IHostingEnvironment env) : base(configuration, logFactory, env)
         {
         }
 
