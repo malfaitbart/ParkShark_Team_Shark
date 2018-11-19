@@ -29,17 +29,17 @@ namespace ParkShark.API.Controllers.Persons
         public override Person DtoToDomain(PersonDto dtoObject)
         {
             return new Person
-            {
-                Id = dtoObject.Id,
-                Name = dtoObject.Name,
-                MobilePhone = dtoObject.MobilePhone,
-                Phone = dtoObject.Phone,
-                PersonAddress = dtoObject.PersonAddress,
-                EmailAdress = dtoObject.EmailAdress,
-                LicensePlate = dtoObject.LicensePlate,
-                MembershipId = dtoObject.MembershipId,
-                RegistrationDate = dtoObject.RegistrationDate
-            };
+            (
+                dtoObject.Id,
+                dtoObject.Name,
+                dtoObject.MobilePhone,
+                dtoObject.Phone,
+                dtoObject.PersonAddress,
+                dtoObject.EmailAdress,
+                dtoObject.LicensePlate,
+                dtoObject.MembershipId,
+                dtoObject.RegistrationDate
+            );
         }
     }
 }

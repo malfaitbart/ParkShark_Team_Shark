@@ -1,15 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ParkShark.Services.Data;
-using ParkShark.Services.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using ParkShark.Model.Addresses;
 using ParkShark.Model.Divisions;
 using ParkShark.Model.Parkinglots;
 using ParkShark.Model.Parkinglots.BuildingTypes;
 using ParkShark.Model.Persons;
+using ParkShark.Services.Data;
 using ParkShark.Services.Repositories.Parkinglots;
+using System;
+using System.Collections.Generic;
+using ParkShark.Model.Persons.LicensePlates;
 using Xunit;
 
 namespace ParkShark.Services.Tests.Repositories
@@ -28,14 +27,14 @@ namespace ParkShark.Services.Tests.Repositories
                 .Options;
 
             var result = false;
-            
+
             //When
             using (var context = new ParkSharkContext(options))
             {
                 IParkinglotRepository parkinglotRepository = new ParkinglotRepository(context);
                 result = parkinglotRepository.SaveNewParkinglot(parkinglot);
             }
-            
+
             //Then
             Assert.True(result);
         }
@@ -50,19 +49,19 @@ namespace ParkShark.Services.Tests.Repositories
                 .UseInMemoryDatabase("parkshark" + Guid.NewGuid().ToString("n"))
                 .Options;
 
-            
+
 
             //When
             using (var context = new ParkSharkContext(options))
             {
                 IParkinglotRepository parkinglotRepository = new ParkinglotRepository(context);
-              var result = parkinglotRepository.GetAllParkinglots();
+                var result = parkinglotRepository.GetAllParkinglots();
 
                 //Then
                 Assert.IsType<List<Parkinglot>>(result);
             }
 
-            
+
         }
 
         [Fact]
@@ -109,14 +108,15 @@ namespace ParkShark.Services.Tests.Repositories
                     CityName = "er",
                     PostalCode = "4153",
                 };
-                context.Persons.Add(new Person()
-                {
-                    Id = 1,
-                    Name = "Person1",
-                    MobilePhone = "MobilePhone1",
-                    EmailAdress = "EmailAdress@test.be",
-                    PersonAddress = adress
-                });
+                context.Persons.Add(new Person(
+                    1,
+                    "Person1",
+                    "MobilePhone1",
+                    "00",
+                    adress,
+                    "EmailAdress@test.be",
+                    new LicensePlate()
+                ));
 
                 context.Set<BuildingType>().Add(new BuildingType()
                 {

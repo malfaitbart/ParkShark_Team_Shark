@@ -1,64 +1,72 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Mail;
-using System.Text;
-using ParkShark.Infrastructure.Exceptions;
-using ParkShark.Model.Addresses;
-using ParkShark.Model.Divisions;
-using ParkShark.Model.Parkinglots;
+﻿using ParkShark.Model.Addresses;
 using ParkShark.Model.Persons.LicensePlates;
+using System;
+using System.Net.Mail;
 
 namespace ParkShark.Model.Persons
 {
-    public class Person:ModelCreationCheckClass
+    public class Person
     {
-        public int Id { get; set;  }
-        public string Name { get; set; }
-        public string MobilePhone { get; set; }
-        public string Phone { get; set; }
-        public Address PersonAddress { get; set; }
-        public string EmailAdress { get; set; }
-        public LicensePlate LicensePlate { get; set; }
-        public int? MembershipId { get; set; }
-        public DateTime? RegistrationDate { get; set; }
+        public int Id { get; private set; }
+        public string Name { get; private set; }
+        public string MobilePhone { get; private set; }
+        public string Phone { get; private set; }
+        public Address PersonAddress { get; private set; }
+        public string EmailAdress { get; private set; }
+        public LicensePlate LicensePlate { get; private set; }
+        public int? MembershipId { get; private set; }
+        public DateTime? RegistrationDate { get; private set; }
         //public ICollection<Parkinglot> Parkinglots { get; } = new List<Parkinglot>();
         //public ICollection<Division> Divisions { get; } = new List<Division>();
+        private Person() { }
 
-        public void CheckValues()
+
+        public Person(string name, string mobilePhone, string phone, Address address, string email, LicensePlate licensePlate, int? membershipId = null)
         {
-            CheckFilledIn(Name, "Name", this);
-            if (MobilePhone == null && Phone == null)
-            {
-                CheckFilledIn(MobilePhone, "MobilePhone or Phone", this);
-            }
-            PersonAddress.CheckValues();
-            CheckEmail(EmailAdress);
-            //CheckFilledIn(EmailAdress, "Email", this);
+            //CheckValues();
+            Name = CheckName(name);
+
+            MobilePhone = mobilePhone;
+            Phone = phone;
+
+            PersonAddress = address;
+            EmailAdress = CheckEmail(email);
+            LicensePlate = licensePlate;
+            MembershipId = membershipId;
         }
 
-        private void CheckEmail(string email)
+        public Person(int id, string name, string mobilePhone, string phone, Address personAddress, string emailAdress, LicensePlate licensePlate, int? membershipId = null, DateTime? registrationDate = null)
         {
-            if (string.IsNullOrWhiteSpace(email))
-            {
-                throw new EntityNotValidException($"Email is required", this);
-            }
+            Id = id;
+            Name = CheckName(name);
 
-            if (!IsEmailValid(email))
+            MobilePhone = mobilePhone;
+            Phone = phone;
+
+            PersonAddress = personAddress;
+            EmailAdress = CheckEmail(emailAdress);
+            LicensePlate = licensePlate;
+            MembershipId = membershipId;
+        }
+        private string CheckName(string name)
+        {
+            if (string.IsNullOrEmpty(name))
             {
-                throw new EntityNotValidException($" not a correct Email-format", this);
+                throw new PersonException("name is required, create person is aborted");
             }
+            return name;
         }
 
-        private bool IsEmailValid(string email)
+        private string CheckEmail(string email)
         {
             try
             {
                 MailAddress m = new MailAddress(email);
-                return true;
+                return email;
             }
-            catch (FormatException)
+            catch (Exception e)
             {
-                return false;
+                throw new FormatException("Mailaddress is not in avlid format");
             }
         }
 

@@ -10,28 +10,6 @@ namespace ParkShark.Services.Data
 {
     class ParkSharkData
     {
-
-
-        internal Person person1 = new Person()
-        {
-            Id = 1,
-            Name = "Person1",
-            MobilePhone = "MobilePhone1",
-            //PersonAddress = new Address
-            //{
-            //    StreetName = "teststraat",
-            //    StreetNumber = "10",
-            //    PostalCode = "1000",
-            //    CityName = "bxl"
-            //},
-            EmailAdress = "EmailAdress@test.be",
-            //LicensePlate = new LicensePlate
-            //{
-            //    LicensePlateNumber = "000-000",
-            //    Country = "BE"
-            //}
-        };
-
         internal BuildingType buildingType1 = new BuildingType()
         {
             Id = 1,
@@ -77,7 +55,13 @@ namespace ParkShark.Services.Data
 
             modelBuilder.Entity<Person>(p =>
             {
-                p.HasData(seedData.person1);
+                p.HasData(new
+                {
+                    Name = "test",
+                    MobilePhone = "000",
+                    Phone = "000",
+                    EmailAddress = "test@test.be"
+                });
                 p.OwnsOne(pp => pp.PersonAddress).HasData(new
                 {
                     StreetNumber = "1",

@@ -78,13 +78,6 @@ namespace ParkShark.Services.Tests.Repositories.DivisionRepositories
         public void GivenADivision_WhenGetAllDivisions_ThenRepoReturnsAListOfDivisions()
         {
             //Given
-            var division = new Division{
-                Name = "test",
-                OriginalName = "original",
-                DirectorID = 0,
-                ParentDivisionId = null
-            };
-
             var options = new DbContextOptionsBuilder<ParkSharkContext>()
                 .UseInMemoryDatabase("parkshark" + Guid.NewGuid().ToString("n"))
                 .Options;

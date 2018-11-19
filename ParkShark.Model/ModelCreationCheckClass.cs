@@ -21,7 +21,6 @@ namespace ParkShark.Model
             }
             if (inputValue == null)
                 throw new EntityNotValidException($"{errorMessageIfNotFilledIn} is required", objectOfClass);
-
         }
     }
 }

@@ -97,7 +97,7 @@ namespace ParkShark.Services.Data
 
             base.OnModelCreating(modelBuilder);
 
-            SeedData(modelBuilder);
+            //SeedData(modelBuilder);
         }
     }
 }

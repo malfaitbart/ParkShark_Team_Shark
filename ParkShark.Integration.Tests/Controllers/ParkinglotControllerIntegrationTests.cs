@@ -1,23 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
-using ParkShark.API;
 using ParkShark.API.Controllers.Parkinglots;
 using ParkShark.Model.Addresses;
 using ParkShark.Model.Divisions;
 using ParkShark.Model.Parkinglots;
 using ParkShark.Model.Parkinglots.BuildingTypes;
 using ParkShark.Model.Persons;
+using ParkShark.Model.Persons.LicensePlates;
 using ParkShark.Services.Data;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace ParkShark.Integration.Tests.Controllers
@@ -43,7 +41,7 @@ namespace ParkShark.Integration.Tests.Controllers
                     .CreateClient();
 
                 var context = server.Host.Services.GetService<ParkSharkContext>();
-                
+
 
                 #region fillingInMemoryDatabase
 
@@ -54,14 +52,15 @@ namespace ParkShark.Integration.Tests.Controllers
                     CityName = "er",
                     PostalCode = "4153",
                 };
-                context.Persons.Add(new Person()
-                {
-                    Id = 1,
-                    Name = "Person1",
-                    MobilePhone = "MobilePhone1",
-                    EmailAdress = "EmailAdress@test.be",
-                    PersonAddress = adress
-                });
+                context.Persons.Add(new Person(
+                    1,
+                    "Person1",
+                    "MobilePhone1",
+                    "000",
+                    adress,
+                    "EmailAdress@test.be",
+                    new LicensePlate()
+                ));
 
                 context.Set<BuildingType>().Add(new BuildingType()
                 {
@@ -154,14 +153,15 @@ namespace ParkShark.Integration.Tests.Controllers
                     CityName = "er",
                     PostalCode = "4153",
                 };
-                context.Persons.Add(new Person()
-                {
-                    Id = 1,
-                    Name = "Person1",
-                    MobilePhone = "MobilePhone1",
-                    EmailAdress = "EmailAdress@test.be",
-                    PersonAddress = adress
-                });
+                context.Persons.Add(new Person(
+                    1,
+                    "Person1",
+                    "MobilePhone1",
+                    "000",
+                    adress,
+                    "EmailAdress@test.be",
+                    new LicensePlate()
+                ));
 
                 context.Set<BuildingType>().Add(new BuildingType()
                 {
