@@ -9,5 +9,6 @@ namespace ParkShark.Services.Repositories.Parkinglots
     {
         bool SaveNewParkinglot(Parkinglot parkinglot);
         List<Parkinglot> GetAllParkinglots();
+        Parkinglot GetOneParkinglot(int id);
     }
 }

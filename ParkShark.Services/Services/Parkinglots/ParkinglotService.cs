@@ -3,6 +3,7 @@ using ParkShark.Services.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using ParkShark.Infrastructure.Exceptions;
 using ParkShark.Services.Repositories.Parkinglots;
 
 namespace ParkShark.Services.Services.Parkinglots
@@ -25,6 +26,17 @@ namespace ParkShark.Services.Services.Parkinglots
         public List<Parkinglot> GetAll()
         {
             return _parkinglotRepository.GetAllParkinglots();
+        }
+
+        public Parkinglot GetOneParkinglot(int id)
+        {
+            var parkinglot= _parkinglotRepository.GetOneParkinglot(id);
+            if (parkinglot == null)
+            {
+                throw new EntityNotFoundException("GetOneParkinglot", "Parkinglot", id.ToString());
+            }
+
+            return parkinglot;
         }
     }
 }

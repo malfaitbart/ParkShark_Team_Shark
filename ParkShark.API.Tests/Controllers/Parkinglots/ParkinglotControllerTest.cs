@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using NJsonSchema.Infrastructure;
 using NSubstitute;
 using ParkShark.API.Controllers.Parkinglots;
 using ParkShark.Infrastructure.DtoMapper;
 using ParkShark.Infrastructure.Exceptions;
+using ParkShark.Model.Addresses;
 using ParkShark.Model.Parkinglots;
 using ParkShark.Services.Services.Parkinglots;
 using Xunit;
@@ -31,8 +33,8 @@ namespace ParkShark.API.Tests.Controllers.Parkinglots
             //Given
             ParkinglotDto parkinglotDto = new ParkinglotDto();
             Parkinglot parkinglot = new Parkinglot();
-            _parkinglotMapper.DtoToDomain(parkinglotDto).Returns(parkinglot);
-            _parkinglotService.CreateParkinglot(parkinglot).Returns(parkinglot);
+            //_parkinglotMapper.DtoToDomain(parkinglotDto).Returns(parkinglot);
+            _parkinglotService.CreateParkinglot(_parkinglotMapper.DtoToDomain(parkinglotDto)).Returns(parkinglot);
 
             //When
             CreatedResult returnValue = (CreatedResult) _parkinglotController.Createparkinglot(parkinglotDto).Result;
@@ -61,6 +63,49 @@ namespace ParkShark.API.Tests.Controllers.Parkinglots
 
             ////then
             //Assert.IsType<BadRequestObjectResult>(returnValue);
+        }
+
+        [Fact]
+        public void GivenListParkinglotDto_WhenGetAll_ThenReturnOKWithList()
+        {
+            //Given
+            ParkinglotDto parkinglotDto = new ParkinglotDto();
+            List<ParkinglotDto> listParkinglotDto = new List<ParkinglotDto>() { parkinglotDto };
+
+            Parkinglot parkinglot = new Parkinglot();
+            List<Parkinglot> listParkinglot = new List<Parkinglot>() { parkinglot };
+
+            _parkinglotService.GetAll().Returns(listParkinglot);
+
+            //_parkinglotMapper.ListToDtoList(listParkinglot).Returns(listParkinglotDto);
+
+            //When
+            OkObjectResult ok = (OkObjectResult) _parkinglotController.GetAllParkinglots().Result;
+            //ActionResult<List<ParkinglotDto>> returnValue = _parkinglotController.GetAllParkinglots();
+
+            
+            //then
+            //OkObjectResult returnValue = (OkObjectResult)_parkinglotController.GetAllParkinglots().Result;
+            Assert.Equal(200, ok.StatusCode);
+            Assert.IsType < List<ParkinglotDto>>(ok.Value);
+        }
+
+        [Fact]
+        public void GivenListParkinglotDto_WhenGetOnel_ThenReturnOKWithOne()
+        {
+            //Given
+
+            Parkinglot parkinglot = new Parkinglot();
+            _parkinglotService.GetOneParkinglot(1).Returns(parkinglot);
+            _parkinglotMapper.DomainToDto(parkinglot).Returns(new ParkinglotDto());
+
+
+            //When
+            OkObjectResult ok = (OkObjectResult)_parkinglotController.GetOneParkinglot(1).Result;
+
+            //then
+            Assert.Equal(200, ok.StatusCode);
+            Assert.IsType<ParkinglotDto>(ok.Value);
         }
     }
 }

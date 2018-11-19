@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -13,6 +14,7 @@ using ParkShark.API;
 using ParkShark.API.Controllers.Parkinglots;
 using ParkShark.Model.Addresses;
 using ParkShark.Model.Divisions;
+using ParkShark.Model.Parkinglots;
 using ParkShark.Model.Parkinglots.BuildingTypes;
 using ParkShark.Model.Persons;
 using ParkShark.Services.Data;
@@ -104,6 +106,125 @@ namespace ParkShark.Integration.Tests.Controllers
 
                 Assert.True(response.IsSuccessStatusCode);
                 Assert.Equal("Name", parkinglotDtoCreated.Name);
+            }
+        }
+
+        [Fact]
+        public async Task GetAllParkinglots_WhenGetAllParkinglots_ThenReturnParkinglotDtoList()
+        {
+            var server = new TestServer(new WebHostBuilder()
+                .UseStartup<TestStartup>());
+
+            using (server)
+            {
+                var client = server
+                    .CreateClient();
+
+                var context = server.Host.Services.GetService<ParkSharkContext>();
+
+
+                var response = await client.GetAsync("api/parkinglots");
+
+                var responseString = await response.Content.ReadAsStringAsync();
+                List<ParkinglotDto> parkinglotDtoList = JsonConvert.DeserializeObject<List<ParkinglotDto>>(responseString);
+
+                Assert.True(response.IsSuccessStatusCode);
+                Assert.IsType<List<ParkinglotDto>>(parkinglotDtoList);
+            }
+        }
+
+        [Fact]
+        public async Task GetOneParkinglot_WhenGetOneParkinglot_ThenReturnParkinglotDto()
+        {
+            var server = new TestServer(new WebHostBuilder()
+                .UseStartup<TestStartup>());
+
+            using (server)
+            {
+                var client = server
+                    .CreateClient();
+
+                var context = server.Host.Services.GetService<ParkSharkContext>();
+                #region fillingInMemoryDatabase
+
+                Address adress = new Address()
+                {
+                    StreetNumber = "1",
+                    StreetName = "tt",
+                    CityName = "er",
+                    PostalCode = "4153",
+                };
+                context.Persons.Add(new Person()
+                {
+                    Id = 1,
+                    Name = "Person1",
+                    MobilePhone = "MobilePhone1",
+                    EmailAdress = "EmailAdress@test.be",
+                    PersonAddress = adress
+                });
+
+                context.Set<BuildingType>().Add(new BuildingType()
+                {
+                    Id = 1,
+                    Name = "Underground"
+                });
+
+                context.Divisions.Add(new Division()
+                {
+                    ID = 1,
+                    Name = "Division1",
+                    OriginalName = "Original1",
+                    DirectorID = 1
+                });
+
+                Parkinglot parkinglot = new Parkinglot()
+                {
+                    BuildingTypeId = 1,
+                    Capacity = 5,
+                    ContactPersonId = 1,
+                    DivisionId = 1,
+                    Name = "Name",
+                    Id = 1,
+                    PlAddress = new Address()
+                    {
+                        StreetNumber = "1",
+                        StreetName = "tt",
+                        CityName = "er",
+                        PostalCode = "4153"
+                    },
+                    PricePerHour = 10
+                };
+                context.Add(parkinglot);
+                await context.SaveChangesAsync();
+                #endregion fillingInMemoryDatabase
+
+                var response = await client.GetAsync("api/parkinglots/1");
+
+                var responseString = await response.Content.ReadAsStringAsync();
+                ParkinglotDto parkinglotDto = JsonConvert.DeserializeObject<ParkinglotDto>(responseString);
+
+                Assert.True(response.IsSuccessStatusCode);
+                Assert.IsType<ParkinglotDto>(parkinglotDto);
+            }
+        }
+
+        [Fact]
+        public async Task GetOneParkinglot_WhenGetOneNonExistingParkinglot_ThenReturnBadRequest()
+        {
+            var server = new TestServer(new WebHostBuilder()
+                .UseStartup<TestStartup>());
+
+            using (server)
+            {
+                var client = server
+                    .CreateClient();
+
+                var context = server.Host.Services.GetService<ParkSharkContext>();
+
+                var response = await client.GetAsync("api/parkinglots/5");
+
+                Assert.False(response.IsSuccessStatusCode);
+
             }
         }
     }

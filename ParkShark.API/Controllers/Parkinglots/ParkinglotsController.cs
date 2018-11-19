@@ -28,6 +28,15 @@ namespace ParkShark.API.Controllers.Parkinglots
             return Ok(allParkinglotsDto);
         }
 
+        [HttpGet]
+        [Route("{id}")]
+        public ActionResult<ParkinglotDto> GetOneParkinglot(int id)
+        {
+            var oneParkinglot = _parkinglotService.GetOneParkinglot(id);
+            var oneParkinglotsDto = _parkinglotMapper.DomainToDto(oneParkinglot);
+            return Ok(oneParkinglotsDto);
+        }
+
         [HttpPost]
         public ActionResult<ParkinglotDto> Createparkinglot([FromBody]ParkinglotDto parkinglotDto)
         {
