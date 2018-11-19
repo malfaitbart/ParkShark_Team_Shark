@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NJsonSchema;
 using NSwag.AspNetCore;
+using ParkShark.API.Controllers.Allocations;
 using ParkShark.API.Controllers.Divisions;
 using ParkShark.API.Controllers.Parkinglots;
 using ParkShark.Infrastructure.Exceptions;
@@ -23,6 +24,8 @@ using ParkShark.Infrastructure.DtoMapper;
 using ParkShark.Services.Repositories.Persons;
 using ParkShark.Services.Services.Persons;
 using ParkShark.API.Controllers.Persons;
+using ParkShark.Services.Repositories.Allocations;
+using ParkShark.Services.Services.Allocations;
 
 namespace ParkShark.API
 {
@@ -58,14 +61,17 @@ namespace ParkShark.API
             services.AddSingleton<IDivisionRepository, DivisionRepository>();
             services.AddSingleton<IParkinglotRepository, ParkinglotRepository>();
             services.AddSingleton<IPersonRepository, PersonRepository>();
+            services.AddSingleton<IAllocationRepository, AllocationRepository>();
 
             services.AddSingleton<IDivisionService, DivisionService>();
             services.AddSingleton<IParkinglotService, ParkinglotService>();
             services.AddSingleton<IPersonService, PersonService>();
+            services.AddSingleton<IAllocationService, AllocationService>();
 
             services.AddSingleton<ParkinglotMapper>();
             services.AddSingleton<DivisionMapper>();
             services.AddSingleton<PersonMapper>();
+            services.AddSingleton<AllocationMapper>();
 
             services.AddTransient<ParkSharkContext>();
 

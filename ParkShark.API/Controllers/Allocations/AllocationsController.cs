@@ -25,7 +25,7 @@ namespace ParkShark.API.Controllers.Allocations
         {
             var newAllocation = _allocationMapper.DtoToDomain(allocationDto);
             newAllocation = _allocationService.StartAllocation(newAllocation);
-            return Created($"api/Allocations/{newAllocation.Id}", allocationDto.Id);
+            return Created($"api/Allocations/{newAllocation.Id}", newAllocation.Id);
         }
     }
 

@@ -7,6 +7,6 @@ namespace ParkShark.Services.Repositories.Allocations
 {
     public interface IAllocationRepository
     {
-        bool SaveNewAllocation(Allocation newAllocation);
+        Allocation SaveNewAllocation(Allocation newAllocation);
     }
 }

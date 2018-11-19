@@ -24,14 +24,14 @@ namespace ParkShark.Services.Repositories.Allocations
             _parkinglotRepository = parkinglotRepository;
         }
 
-        public bool SaveNewAllocation(Allocation newAllocation)
+        public Allocation SaveNewAllocation(Allocation newAllocation)
         {
             if (CheckPersonExist(newAllocation.MemberPeronId) && CheckParkinglotExist(newAllocation.ParkinglotId))
             {
                 _context.Add(newAllocation);
                 _context.SaveChanges();
             }
-            return true;
+            return newAllocation;
         }
 
         private bool CheckParkinglotExist(int newAllocationParkinglotId)
