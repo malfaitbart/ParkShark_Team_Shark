@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ParkShark.Model.Allocations;
 using ParkShark.Model.Divisions;
 using ParkShark.Model.Parkinglots;
 using ParkShark.Model.Parkinglots.BuildingTypes;
@@ -11,6 +12,7 @@ namespace ParkShark.Services.Data
         public virtual DbSet<Division> Divisions { get; set; }
         public virtual DbSet<Person> Persons { get; set; }
         public virtual DbSet<Parkinglot> Parkinglots { get; set; }
+        public virtual DbSet<Allocation> Allocations { get; set; }
 
         public ParkSharkContext(DbContextOptions<ParkSharkContext> options) : base(options)
         {
@@ -95,9 +97,27 @@ namespace ParkShark.Services.Data
                 .ToTable("BuildingTypes")
                 .HasKey("Id");
 
+            modelBuilder.Entity<Allocation>()
+                .ToTable("Allocations")
+                .HasKey("Id");
+
+            modelBuilder.Entity<Allocation>()
+                .HasOne(al => al.MemberPerson)
+                .WithMany()
+                .HasForeignKey(al => al.MemberPeronId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Allocation>()
+                .HasOne(al => al.Parkinglot)
+                .WithMany()
+                .HasForeignKey(al => al.ParkinglotId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
+
             base.OnModelCreating(modelBuilder);
 
-            //SeedData(modelBuilder);
+            SeedData(modelBuilder);
         }
     }
 }

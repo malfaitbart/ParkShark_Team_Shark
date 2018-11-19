@@ -1,23 +1,17 @@
-﻿using ParkShark.Model.Addresses;
-using ParkShark.Model.Persons.LicensePlates;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System;
+using ParkShark.Model.Parkinglots;
+using ParkShark.Model.Persons;
 
-namespace ParkShark.API.Controllers.Persons
+namespace ParkShark.API.Controllers.Allocations
 {
-    public class PersonDto
+    public class AllocationDto
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string MobilePhone { get; set; }
-        public string Phone { get; set; }
-        public Address PersonAddress { get; set; }
-        public string EmailAdress { get; set; }
-        public LicensePlate LicensePlate { get; set; }
-        public int? MembershipId { get; set; }
-        public DateTime? RegistrationDate { get; set; }
+        public string Id { get; set; }
+        public int MemberPeronId { get; set; }
+        public int ParkinglotId { get; set; }
+        //public DateTime StartingTime { get; set; }
+        //public DateTime EndTime { get; set; }
+        //public string Status { get; set; }
 
     }
 }

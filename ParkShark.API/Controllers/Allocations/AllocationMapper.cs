@@ -5,40 +5,30 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ParkShark.API.Controllers.Persons;
+using ParkShark.Model.Allocations;
 
-namespace ParkShark.API.Controllers.Persons
+namespace ParkShark.API.Controllers.Allocations
 {
-    public class PersonMapper : Mapper<PersonDto, Person>
+    public class AllocationMapper : Mapper<AllocationDto, Allocation>
     {
-        public override PersonDto DomainToDto(Person domainObject)
+        public override AllocationDto DomainToDto(Allocation domainObject)
         {
-            return new PersonDto
+            return new AllocationDto
             {
                 Id = domainObject.Id,
-                Name = domainObject.Name,
-                MobilePhone = domainObject.MobilePhone,
-                Phone = domainObject.Phone,
-                PersonAddress = domainObject.PersonAddress,
-                EmailAdress = domainObject.EmailAdress,
-                LicensePlate= domainObject.LicensePlate,
-                MembershipId = domainObject.MembershipId,
-                RegistrationDate = domainObject.RegistrationDate
+                MemberPeronId = domainObject.MemberPeronId,
+                ParkinglotId = domainObject.ParkinglotId,
             };
         }
 
-        public override Person DtoToDomain(PersonDto dtoObject)
+        public override Allocation DtoToDomain(AllocationDto dtoObject)
         {
-            return new Person
+            return new Allocation
             {
                 Id = dtoObject.Id,
-                Name = dtoObject.Name,
-                MobilePhone = dtoObject.MobilePhone,
-                Phone = dtoObject.Phone,
-                PersonAddress = dtoObject.PersonAddress,
-                EmailAdress = dtoObject.EmailAdress,
-                LicensePlate = dtoObject.LicensePlate,
-                MembershipId = dtoObject.MembershipId,
-                RegistrationDate = dtoObject.RegistrationDate
+                MemberPeronId = dtoObject.MemberPeronId,
+                ParkinglotId = dtoObject.ParkinglotId,
             };
         }
     }

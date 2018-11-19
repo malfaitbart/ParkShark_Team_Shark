@@ -57,6 +57,7 @@ namespace ParkShark.Services.Data
             {
                 p.HasData(new
                 {
+                    Id = 1,
                     Name = "test",
                     MobilePhone = "000",
                     Phone = "000",
