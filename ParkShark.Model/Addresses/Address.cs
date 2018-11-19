@@ -3,7 +3,6 @@ using ParkShark.Infrastructure.Exceptions;
 
 namespace ParkShark.Model.Addresses
 {
-    [Owned]
     public class Address : ModelCreationCheckClass
     {
         public string StreetName { get; set; }

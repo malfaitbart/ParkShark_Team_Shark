@@ -17,6 +17,12 @@
     <Compile Remove="Migrations\20181116084606_04.cs" />
     <Compile Remove="Migrations\20181116085305_05.cs" />
     <Compile Remove="Migrations\20181116091735_06.cs" />
+    <Compile Remove="Migrations\20181116123955_ChangedPersonToIncludeLicensePlate.cs" />
+    <Compile Remove="Migrations\20181119082755_test.cs" />
+    <Compile Remove="Migrations\20181119083107_test.cs" />
+    <Compile Remove="Migrations\20181119083602_testwithdata.cs" />
+    <Compile Remove="Migrations\20181119083645_testwithdata2.cs" />
+    <Compile Remove="Migrations\20181119083900_refactoringPersonToIncludeLicensePlate.cs" />
   </ItemGroup>
 
   <ItemGroup>

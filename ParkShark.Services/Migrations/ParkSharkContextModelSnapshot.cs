@@ -105,8 +105,6 @@ namespace ParkShark.Services.Migrations
 
                     b.Property<string>("EmailAdress");
 
-                    b.Property<int?>("LicensePlateId");
-
                     b.Property<int?>("MembershipId");
 
                     b.Property<string>("MobilePhone");
@@ -189,6 +187,30 @@ namespace ParkShark.Services.Migrations
 
             modelBuilder.Entity("ParkShark.Model.Persons.Person", b =>
                 {
+                    b.OwnsOne("ParkShark.Model.Persons.LicensePlates.LicensePlate", "LicensePlate", b1 =>
+                        {
+                            b1.Property<int?>("PersonId")
+                                .ValueGeneratedOnAdd()
+                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                            b1.Property<string>("Country")
+                                .HasColumnName("Country");
+
+                            b1.Property<string>("LicensePlateNumber")
+                                .HasColumnName("LicensePlateNumber");
+
+                            b1.ToTable("Persons");
+
+                            b1.HasOne("ParkShark.Model.Persons.Person")
+                                .WithOne("LicensePlate")
+                                .HasForeignKey("ParkShark.Model.Persons.LicensePlates.LicensePlate", "PersonId")
+                                .OnDelete(DeleteBehavior.Cascade);
+
+                            b1.HasData(
+                                new { PersonId = 1, Country = "BXL", LicensePlateNumber = "000-000" }
+                            );
+                        });
+
                     b.OwnsOne("ParkShark.Model.Addresses.Address", "PersonAddress", b1 =>
                         {
                             b1.Property<int>("PersonId")
