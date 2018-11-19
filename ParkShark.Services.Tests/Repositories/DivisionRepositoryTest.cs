@@ -1,12 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using ParkShark.Model.Divisions;
 using ParkShark.Services.Data;
 using ParkShark.Services.Repositories.Divisions;
-using System;
-using System.Collections.Generic;
 using Xunit;
 
-namespace ParkShark.Services.Tests.Repositories.DivisionRepositories
+namespace ParkShark.Services.Tests.Repositories
 {
     public class DivisionRepositoryTest
     {

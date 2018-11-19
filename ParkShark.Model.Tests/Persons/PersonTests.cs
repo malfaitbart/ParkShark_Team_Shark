@@ -16,7 +16,7 @@ namespace ParkShark.Model.Tests.Persons
             //Given
             var name = "test";
             var mobilePhone = "000";
-            var phone = "001";
+            var phone = "";
             var street = "street";
             var streetnr = "01";
             var postalcode = "1234";
@@ -133,6 +133,49 @@ namespace ParkShark.Model.Tests.Persons
             };
             var exception = Assert.Throws<PersonException>(act);
             Assert.Equal("name is required, create person is aborted", exception.Message);
+        }
+        [Fact]
+        public void WhenGivenDataWithoutPhonenumber_WhenCreateUser_ThenGetException()
+        {
+            //Given
+            var name = "test";
+            var mobilePhone = "";
+            var phone = "";
+            var street = "street";
+            var streetnr = "01";
+            var postalcode = "1234";
+            var city = "kjhg";
+            var licenseplate = "123";
+            var country = "bel";
+            var mail = "test@test.be";
+
+            //When
+
+            //Then
+            Action act = () =>
+            {
+                var newperson = new Person
+                (
+                    name,
+                    mobilePhone,
+                    phone,
+                    new Address
+                    {
+                        CityName = city,
+                        PostalCode = postalcode,
+                        StreetName = street,
+                        StreetNumber = streetnr
+                    },
+                    mail,
+                    new LicensePlate
+                    {
+                        Country = country,
+                        LicensePlateNumber = licenseplate
+                    }
+                );
+            };
+            var exception = Assert.Throws<PersonException>(act);
+            Assert.Equal("you must provide at least a phone or mobilphonenumber", exception.Message);
         }
     }
 }
