@@ -20,6 +20,11 @@ namespace ParkShark.Services.Services.Persons
             return _personRepository.GetAll();
         }
 
+        public Person GetById(int id)
+        {
+            return _personRepository.GetById(id);
+        }
+
         public Person SaveNewPerson(Person person)
         {
             _personRepository.SaveNewPerson(person);

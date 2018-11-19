@@ -26,6 +26,7 @@ namespace ParkShark.Model.Persons
             //CheckValues();
             Name = CheckName(name);
 
+            CheckPhone(mobilePhone, phone);
             MobilePhone = mobilePhone;
             Phone = phone;
 
@@ -40,6 +41,7 @@ namespace ParkShark.Model.Persons
             Id = id;
             Name = CheckName(name);
 
+            CheckPhone(mobilePhone, phone);
             MobilePhone = mobilePhone;
             Phone = phone;
 
@@ -48,6 +50,15 @@ namespace ParkShark.Model.Persons
             LicensePlate = licensePlate;
             MembershipId = membershipId;
         }
+
+        private void CheckPhone(string mobilePhone, string phone)
+        {
+            if (string.IsNullOrEmpty(mobilePhone) && string.IsNullOrEmpty(phone))
+            {
+                throw new PersonException("you must provide at least a phone or mobilphonenumber");
+            }
+        }
+
         private string CheckName(string name)
         {
             if (string.IsNullOrEmpty(name))

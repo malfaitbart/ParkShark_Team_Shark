@@ -7,5 +7,6 @@ namespace ParkShark.Services.Repositories.Persons
     {
         bool SaveNewPerson(Person person);
         List<Person> GetAll();
+        Person GetById(int id);
     }
 }

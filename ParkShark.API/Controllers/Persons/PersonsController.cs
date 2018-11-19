@@ -33,6 +33,12 @@ namespace ParkShark.API.Controllers.Persons
             return Ok(output);
         }
 
+        [HttpGet("{id}")]
+        public PersonDto GetById(int id)
+        {
+            return _personMapper.DomainToDto(_personService.GetById((id)));
+        }
+
         [HttpPost]
         public ActionResult SaveNewPerson(PersonDto personDto)
         {

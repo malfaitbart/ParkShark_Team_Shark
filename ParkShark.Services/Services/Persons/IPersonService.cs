@@ -7,5 +7,6 @@ namespace ParkShark.Services.Services.Persons
     {
         Person SaveNewPerson(Person person);
         List<Person> GetAll();
+        Person GetById(int id);
     }
 }

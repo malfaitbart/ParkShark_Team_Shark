@@ -21,6 +21,11 @@ namespace ParkShark.Services.Repositories.Persons
             return _context.Persons.ToList();
         }
 
+        public Person GetById(int id)
+        {
+            return _context.Persons.FirstOrDefault(p => p.Id == id);
+        }
+
         public bool SaveNewPerson(Person person)
         {
             _context.Add(person);
