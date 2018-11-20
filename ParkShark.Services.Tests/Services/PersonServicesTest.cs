@@ -42,11 +42,7 @@ namespace ParkShark.Services.Tests.Services
                     StreetNumber = "10"
                 },
                 "test@test.be",
-                new LicensePlate
-                {
-                    Country = "be",
-                    LicensePlateNumber = "123456"
-                }
+                new LicensePlate("123", "be")
             );
 
             //Given
@@ -76,11 +72,7 @@ namespace ParkShark.Services.Tests.Services
                     StreetNumber = "10"
                 },
                 "test@test.be",
-                new LicensePlate
-                {
-                    Country = "be",
-                    LicensePlateNumber = "123456"
-                }
+                new LicensePlate("123456","be")
             );
 
             var mock = new Mock<IPersonRepository>();
@@ -98,7 +90,6 @@ namespace ParkShark.Services.Tests.Services
         {
             //Given
             var mock = new Mock<IPersonRepository>();
-            //mock.Setup(m => m.GetById(-1)).Returns();
             PersonService personService = new PersonService(mock.Object);
 
             //When

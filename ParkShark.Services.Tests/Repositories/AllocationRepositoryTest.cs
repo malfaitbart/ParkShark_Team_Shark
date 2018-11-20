@@ -1,20 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ParkShark.Model.Addresses;
-using ParkShark.Model.Divisions;
-using ParkShark.Model.Parkinglots;
-using ParkShark.Model.Parkinglots.BuildingTypes;
-using ParkShark.Model.Persons;
-using ParkShark.Services.Data;
-using ParkShark.Services.Repositories.Parkinglots;
-using System;
-using System.Collections.Generic;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 using ParkShark.Infrastructure.Exceptions;
+using ParkShark.Model.Addresses;
 using ParkShark.Model.Allocations;
+using ParkShark.Model.Parkinglots;
+using ParkShark.Model.Persons;
 using ParkShark.Model.Persons.LicensePlates;
+using ParkShark.Services.Data;
 using ParkShark.Services.Repositories.Allocations;
+using ParkShark.Services.Repositories.Parkinglots;
 using ParkShark.Services.Repositories.Persons;
+using System;
 using Xunit;
 
 namespace ParkShark.Services.Tests.Repositories
@@ -34,7 +31,7 @@ namespace ParkShark.Services.Tests.Repositories
         public void GivenAnAllocation_WhenStartAllocation_ThenRepoReturnsAllocationWithStatusAndStartTime()
         {
             //Given
-            
+
             var name = "test";
             var mobilePhone = "000";
             var phone = "";
@@ -60,17 +57,13 @@ namespace ParkShark.Services.Tests.Repositories
                     StreetNumber = streetnr
                 },
                 mail,
-                new LicensePlate
-                {
-                    Country = country,
-                    LicensePlateNumber = licenseplate
-                }
+                new LicensePlate(country,licenseplate)
             );
 
             var allocation = new Allocation()
             {
-                ParkinglotId=5,
-                MemberPersonId = 1
+                ParkinglotId = 5,
+                MemberPeronId = 1
             };
 
             var options = new DbContextOptionsBuilder<ParkSharkContext>()
@@ -86,7 +79,7 @@ namespace ParkShark.Services.Tests.Repositories
                 _parkinglotRepository.GetOneParkinglot(5).Returns(new Parkinglot());
                 var result = allocationRepository.SaveNewAllocation(allocation);
                 //Then
-                Assert.Equal(DateTime.Now.ToString("MM/dd/yyyy"),result.StartingTime.ToString("MM/dd/yyyy"));
+                Assert.Equal(DateTime.Now.ToString("MM/dd/yyyy"), result.StartingTime.ToString("MM/dd/yyyy"));
                 Assert.Equal("Active", result.Status.ToString());
             }
         }

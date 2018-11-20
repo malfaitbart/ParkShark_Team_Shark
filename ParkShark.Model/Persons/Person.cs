@@ -23,7 +23,6 @@ namespace ParkShark.Model.Persons
 
         public Person(string name, string mobilePhone, string phone, Address address, string email, LicensePlate licensePlate, int? membershipId = null)
         {
-            //CheckValues();
             Name = CheckName(name);
 
             CheckPhone(mobilePhone, phone);
@@ -34,6 +33,7 @@ namespace ParkShark.Model.Persons
             EmailAdress = CheckEmail(email);
             LicensePlate = licensePlate;
             MembershipId = membershipId;
+            RegistrationDate = DateTime.Now;
         }
 
         public Person(int id, string name, string mobilePhone, string phone, Address personAddress, string emailAdress, LicensePlate licensePlate, int? membershipId = null, DateTime? registrationDate = null)
@@ -49,6 +49,17 @@ namespace ParkShark.Model.Persons
             EmailAdress = CheckEmail(emailAdress);
             LicensePlate = licensePlate;
             MembershipId = membershipId;
+            RegistrationDate = CheckRegistrationDate(registrationDate);
+        }
+
+        private DateTime? CheckRegistrationDate(DateTime? registrationDate)
+        {
+            if (registrationDate == null)
+            {
+                return DateTime.Now;
+            }
+
+            return registrationDate;
         }
 
         private void CheckPhone(string mobilePhone, string phone)
