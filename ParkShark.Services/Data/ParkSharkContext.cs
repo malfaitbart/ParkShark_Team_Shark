@@ -20,6 +20,10 @@ namespace ParkShark.Services.Data
         public virtual DbSet<Allocation> Allocations { get; set; }
         public virtual DbSet<MemberShip> MemberShips { get; set; }
 
+        public ParkSharkContext(DbContextOptions<ParkSharkContext> options) : base(options)
+        {
+        }
+
         public ParkSharkContext(DbContextOptions<ParkSharkContext> options, ILoggerFactory loggerFactory) : base(options)
         {
             _loggerFactory = loggerFactory;

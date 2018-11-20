@@ -195,13 +195,7 @@ namespace ParkShark.Services.Tests.Repositories
                     Name = "Underground"
                 });
 
-                context.Divisions.Add(new Division()
-                {
-                    ID = 1,
-                    Name = "Division1",
-                    OriginalName = "Original1",
-                    DirectorID = 1
-                });
+                context.Divisions.Add(new Division(1,"Division1","Original1",1,null));
 
                 Parkinglot parkinglot = new Parkinglot()
                 {
