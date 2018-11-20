@@ -53,7 +53,7 @@ namespace ParkShark.Integration.Tests.Controllers.Allocations
                 {
                     MemberPeronId = 1,
                     ParkinglotId = 1,
-                    MemberLicensePlate = new LicensePlate(){ Country = "Be", LicensePlateNumber = "123" }
+                    MemberLicensePlate = new LicensePlate("123", "BE") 
                 };
 
                 var content = JsonConvert.SerializeObject(allocationDto);
@@ -95,7 +95,7 @@ namespace ParkShark.Integration.Tests.Controllers.Allocations
                 "000",
                 adress,
                 "EmailAdress@test.be",
-                new LicensePlate() { Country = "Be", LicensePlateNumber = "123" }));
+                new LicensePlate("123", "BE")));
 
             context.Set<BuildingType>().Add(new BuildingType()
             {
@@ -185,11 +185,7 @@ namespace ParkShark.Integration.Tests.Controllers.Allocations
                 {
                     MemberPeronId = 1,
                     ParkinglotId = 1,
-                    MemberLicensePlate = new LicensePlate()
-                    {
-                        Country = "BE",
-                        LicensePlateNumber = "OtherPlate"
-                    }                  
+                    MemberLicensePlate = new LicensePlate("OtherPlate","BE")                
                 };
 
                 var content = JsonConvert.SerializeObject(allocationDto);

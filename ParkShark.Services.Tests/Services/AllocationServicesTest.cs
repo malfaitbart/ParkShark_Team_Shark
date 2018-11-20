@@ -55,11 +55,7 @@ namespace ParkShark.Services.Tests.Services
                     StreetNumber = streetnr
                 },
                 mail,
-                new LicensePlate
-                {
-                    Country = country,
-                    LicensePlateNumber = licenseplate
-                }
+                new LicensePlate(licenseplate, country)
             );
         }
 
@@ -95,7 +91,7 @@ namespace ParkShark.Services.Tests.Services
            
             //When
             Action action = () => allocationService.StartAllocation(startAllocation, 
-                                                    new LicensePlate(){Country="BE", LicensePlateNumber = "Fout"});
+                                                    new LicensePlate("Fout","BE"));
 
             //Then
             var exception = Assert.Throws<EntityNotValidException>(action);

@@ -1,4 +1,6 @@
-﻿namespace ParkShark.Model.Persons.LicensePlates
+﻿using System;
+
+namespace ParkShark.Model.Persons.LicensePlates
 {
     public class LicensePlate 
     {

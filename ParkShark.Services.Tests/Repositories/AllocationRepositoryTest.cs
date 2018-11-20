@@ -57,13 +57,13 @@ namespace ParkShark.Services.Tests.Repositories
                     StreetNumber = streetnr
                 },
                 mail,
-                new LicensePlate(country,licenseplate)
+                new LicensePlate(licenseplate, country)
             );
 
             var allocation = new Allocation()
             {
                 ParkinglotId = 5,
-                MemberPeronId = 1
+                MemberPersonId = 1
             };
 
             var options = new DbContextOptionsBuilder<ParkSharkContext>()
