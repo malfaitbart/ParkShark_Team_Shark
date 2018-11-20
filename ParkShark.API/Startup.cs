@@ -1,44 +1,42 @@
-﻿using System;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 using NJsonSchema;
 using NSwag.AspNetCore;
 using ParkShark.API.Controllers.Allocations;
 using ParkShark.API.Controllers.Divisions;
 using ParkShark.API.Controllers.Parkinglots;
+using ParkShark.API.Controllers.Persons;
 using ParkShark.Infrastructure.Exceptions;
 using ParkShark.Infrastructure.Logging;
 using ParkShark.Services.Data;
-using ParkShark.Services.Services.Divisions;
+using ParkShark.Services.Repositories.Allocations;
 using ParkShark.Services.Repositories.Divisions;
 using ParkShark.Services.Repositories.Parkinglots;
-using ParkShark.Services.Services.Parkinglots;
-using ParkShark.Model.Parkinglots;
-using ParkShark.Model.Divisions;
-using ParkShark.Infrastructure.DtoMapper;
 using ParkShark.Services.Repositories.Persons;
-using ParkShark.Services.Services.Persons;
-using ParkShark.API.Controllers.Persons;
-using ParkShark.Services.Repositories.Allocations;
 using ParkShark.Services.Services.Allocations;
+using ParkShark.Services.Services.Divisions;
+using ParkShark.Services.Services.Parkinglots;
+using ParkShark.Services.Services.Persons;
+using System;
+using Microsoft.Extensions.Logging.Debug;
 
 namespace ParkShark.API
 {
     public class Startup
     {
-        //private string _connectionstring = "(LocalDb)\\MSSQLLocalDb";
         private string _connectionstring = ".\\SQLExpress";
         //TODO Zie: https://docs.microsoft.com/en-us/aspnet/core/fundamentals/environments?view=aspnetcore-2.1
+
         public Startup(IConfiguration configuration, ILoggerFactory logFactory, IHostingEnvironment env)
         {
             Configuration = configuration;
             ApplicationLogging.LoggerFactory = logFactory;
-            //var foo = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             var foo = Environment.GetEnvironmentVariable("ParkSharkSql", EnvironmentVariableTarget.User);
             if (foo != null && foo.Equals("SqlServer"))
             {
@@ -56,7 +54,8 @@ namespace ParkShark.API
 
         protected virtual void ConfigureParkSharkServices(IServiceCollection services)
         {
-            services.AddSingleton<DbContextOptions<ParkSharkContext>>(ConfigureDbContext());
+
+            services.AddSingleton(ConfigureDbContext());
 
             services.AddSingleton<IDivisionRepository, DivisionRepository>();
             services.AddSingleton<IParkinglotRepository, ParkinglotRepository>();
@@ -81,10 +80,8 @@ namespace ParkShark.API
 
         protected virtual DbContextOptions<ParkSharkContext> ConfigureDbContext()
         {
-            
             return new DbContextOptionsBuilder<ParkSharkContext>()
                 .UseSqlServer($"Data Source={_connectionstring};Initial Catalog=ParkShark;Integrated Security=True;")
-                //(LocalDb)\\MSSQLLocalDb
                 .Options;
         }
 
@@ -98,7 +95,7 @@ namespace ParkShark.API
             else
             {
                 app.UseHsts();
-            }         
+            }
 
             app.UseSwaggerUi3WithApiExplorer(settings =>
             {
