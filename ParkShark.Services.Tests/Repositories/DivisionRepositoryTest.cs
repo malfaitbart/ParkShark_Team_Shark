@@ -14,13 +14,7 @@ namespace ParkShark.Services.Tests.Repositories
         public void GivenADivision_WhenSaveDivision_ThenRepoReturnsTrue()
         {
             //Given
-            var division = new Division
-            {
-                Name = "test",
-                OriginalName = "original",
-                DirectorID = 0,
-                ParentDivisionId = null
-            };
+            var division = new Division("test","original",0,null);
 
             var options = new DbContextOptionsBuilder<ParkSharkContext>()
                 .UseInMemoryDatabase("parkshark" + Guid.NewGuid().ToString("n"))
@@ -42,19 +36,8 @@ namespace ParkShark.Services.Tests.Repositories
         public void GivenASubDivision_WhenSaveSubDivision_ThenRepoReturnsTrue()
         {
             //Given
-            var division = new Division
-            {
-                Name = "test",
-                OriginalName = "original",
-                DirectorID = 0,
-            };
-            var subdivision = new Division
-            {
-                Name = "test",
-                OriginalName = "original",
-                DirectorID = 0,
-                ParentDivisionId = division.ID
-            };
+            var division = new Division("test", "original", 0, null);
+            var subdivision = new Division("test","original",0,division.Id);
 
 
             var options = new DbContextOptionsBuilder<ParkSharkContext>()
@@ -88,7 +71,7 @@ namespace ParkShark.Services.Tests.Repositories
             using (var context = new ParkSharkContext(options))
             {
                 IDivisionRepository divisionRepository = new DivisionRepository(context);
-                result = divisionRepository.GetAllDevisions();
+                result = divisionRepository.GetAllDivisions();
             }
 
             //Then

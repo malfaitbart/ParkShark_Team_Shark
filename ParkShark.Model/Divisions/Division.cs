@@ -1,14 +1,12 @@
 ﻿using ParkShark.Model.Parkinglots;
 using ParkShark.Model.Persons;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ParkShark.Model.Divisions
 {
     public class Division
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string OriginalName { get; set; }
         public int DirectorID { get; set; }
@@ -17,5 +15,25 @@ namespace ParkShark.Model.Divisions
         public Division ParentDivision { get; set; }
         public ICollection<Parkinglot> Parkinglots { get; } = new List<Parkinglot>();
         public ICollection<Division> Divisions { get; } = new List<Division>();
+
+        private Division()
+        {
+        }
+
+        public Division(string name, string originalName, int directorID, int? parentDivisionId)
+        {
+            Name = name;
+            OriginalName = originalName;
+            DirectorID = directorID;
+            ParentDivisionId = parentDivisionId;
+        }
+        public Division(int id, string name, string originalName, int directorID, int? parentDivisionId)
+        {
+            Id = id;
+            Name = name;
+            OriginalName = originalName;
+            DirectorID = directorID;
+            ParentDivisionId = parentDivisionId;
+        }
     }
 }

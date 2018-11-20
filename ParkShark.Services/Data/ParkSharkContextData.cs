@@ -21,13 +21,7 @@ namespace ParkShark.Services.Data
             Name = "AboveGround"
         };
 
-        internal Division division1 = new Division()
-        {
-            ID = 1,
-            Name = "Division1",
-            OriginalName = "Original1",
-            DirectorID = 1
-        };
+        internal Division division1 = new Division(1,"Division1","Original1",1,null);
 
         internal Parkinglot parkinglot1 = new Parkinglot()
         {
@@ -37,13 +31,6 @@ namespace ParkShark.Services.Data
             ContactPersonId = 1,
             DivisionId = 1,
             Name = "Lot1",
-            //PlAddress = new Address
-            //{
-            //    StreetName = "azerty",
-            //    StreetNumber = "1",
-            //    PostalCode = "1234",
-            //    CityName = "kor"
-            //}
         };
     }
 

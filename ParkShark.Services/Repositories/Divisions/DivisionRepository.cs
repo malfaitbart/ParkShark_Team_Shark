@@ -1,9 +1,7 @@
-﻿using System;
+﻿using ParkShark.Model.Divisions;
+using ParkShark.Services.Data;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using ParkShark.Model.Divisions;
-using ParkShark.Services.Data;
 
 namespace ParkShark.Services.Repositories.Divisions
 {
@@ -16,9 +14,27 @@ namespace ParkShark.Services.Repositories.Divisions
             _context = context;
         }
 
-        public List<Division> GetAllDevisions()
+        public bool DeleteDivision(int id)
+        {
+            var divisiontodelete = _context.Divisions.FirstOrDefault(d => d.Id == id);
+            if (divisiontodelete != null)
+            {
+                _context.Divisions.Remove(divisiontodelete);
+                _context.SaveChanges();
+                return true;
+            }
+
+            return false;
+        }
+
+        public List<Division> GetAllDivisions()
         {
             return _context.Divisions.ToList();
+        }
+
+        public Division GetById(int id)
+        {
+            return _context.Divisions.FirstOrDefault(d => d.Id == id);
         }
 
         public bool SaveNewDivision(Division division)
@@ -26,6 +42,13 @@ namespace ParkShark.Services.Repositories.Divisions
             _context.Add(division);
             _context.SaveChanges();
 
+            return true;
+        }
+
+        public bool UpdateDivision(Division division)
+        {
+            _context.Update(division);
+            _context.SaveChanges();
             return true;
         }
     }

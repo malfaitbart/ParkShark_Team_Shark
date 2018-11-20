@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using ParkShark.Infrastructure.DtoMapper;
 using ParkShark.Model.Divisions;
 
@@ -7,25 +8,21 @@ namespace ParkShark.API.Controllers.Divisions
 {
     public class DivisionMapper : Mapper<DivisionDto, Division>
     {
-        public override DivisionDto DomainToDto(Division domainObject)
+        public override DivisionDto DomainToDto(Division division)
         {
             return new DivisionDto
             {
-                Name = domainObject.Name,
-                OriginalName = domainObject.OriginalName,
-                DirectorId = domainObject.DirectorID,
-                ParentDivisionId = domainObject.ParentDivisionId
+                Id = division.Id,
+                Name = division.Name,
+                OriginalName = division.OriginalName,
+                DirectorId = division.DirectorID,
+                ParentDivisionId = division.ParentDivisionId
             };
         }
 
-        public override Division DtoToDomain(DivisionDto dtoObject)
+        public override Division DtoToDomain(DivisionDto divisionDto)
         {
-            return new Division {
-                Name = dtoObject.Name,
-                OriginalName = dtoObject.OriginalName,
-                DirectorID = dtoObject.DirectorId,
-                ParentDivisionId = dtoObject.ParentDivisionId
-            };
+            return new Division(divisionDto.Name,divisionDto.OriginalName,divisionDto.DirectorId,divisionDto.ParentDivisionId);
         }
 
         public List<DivisionDto> ListToDtoList(List<Division> allDivisions)

@@ -68,13 +68,8 @@ namespace ParkShark.Integration.Tests.Controllers.Allocations
                     Name = "Underground"
                 });
 
-                context.Divisions.Add(new Division()
-                {
-                    ID = 1,
-                    Name = "Division1",
-                    OriginalName = "Original1",
-                    DirectorID = 1
-                });
+                context.Divisions.Add(new Division("test", "original", 0, null));
+
 
                 Parkinglot parkinglotToCreate = new Parkinglot()
                 {

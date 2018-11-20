@@ -70,6 +70,23 @@ namespace ParkShark.Services.Migrations
                     );
                 });
 
+            modelBuilder.Entity("ParkShark.Model.MemberShips.MemberShip", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<double>("AllocationCost");
+
+                    b.Property<double>("MaxAllocationTime");
+
+                    b.Property<double>("MonthlyCost");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MemberShips");
+                });
+
             modelBuilder.Entity("ParkShark.Model.Parkinglots.BuildingTypes.BuildingType", b =>
                 {
                     b.Property<int>("Id")
@@ -140,6 +157,8 @@ namespace ParkShark.Services.Migrations
                     b.Property<DateTime?>("RegistrationDate");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MembershipId");
 
                     b.ToTable("Persons");
 
@@ -224,6 +243,11 @@ namespace ParkShark.Services.Migrations
 
             modelBuilder.Entity("ParkShark.Model.Persons.Person", b =>
                 {
+                    b.HasOne("ParkShark.Model.MemberShips.MemberShip", "MemberShip")
+                        .WithMany()
+                        .HasForeignKey("MembershipId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.OwnsOne("ParkShark.Model.Persons.LicensePlates.LicensePlate", "LicensePlate", b1 =>
                         {
                             b1.Property<int?>("PersonId")

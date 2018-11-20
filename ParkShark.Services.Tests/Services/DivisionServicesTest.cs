@@ -35,22 +35,9 @@ namespace ParkShark.Services.Tests.Services
             var divisionService = new DivisionService(divisionRepository);
             //When
             var newDivision = divisionService.CreateDivision(name, originalName, persondirectorId);
-            var newSubDivision = divisionService.CreateDivision(name, originalName, persondirectorId, newDivision.ID);
+            var newSubDivision = divisionService.CreateDivision(name, originalName, persondirectorId, newDivision.Id);
             //Then
             Assert.IsType<Division>(newSubDivision);
         }
-
-        //[Fact]
-        //public void GivenADivisionService_WhenGetAll_ThenAListOfDivisionsIsReturned()
-        //{
-        //    //Given
-        //    IDivisionRepository divisionRepository = Substitute.For<IDivisionRepository>();
-        //    var divisionService = new DivisionService(divisionRepository);
-        //    //When
-        //    var actual = divisionService.GetAll();
-
-        //    //Then
-        //    Assert.IsType<List<Division>>(actual);
-        //}
     }
 }
