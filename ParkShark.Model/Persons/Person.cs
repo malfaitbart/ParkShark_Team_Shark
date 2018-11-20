@@ -1,4 +1,5 @@
 ﻿using ParkShark.Model.Addresses;
+using ParkShark.Model.MemberShips;
 using ParkShark.Model.Persons.LicensePlates;
 using System;
 using System.Net.Mail;
@@ -15,6 +16,7 @@ namespace ParkShark.Model.Persons
         public string EmailAdress { get; private set; }
         public LicensePlate LicensePlate { get; private set; }
         public int? MembershipId { get; private set; }
+        public MemberShip MemberShip { get; private set; }
         public DateTime? RegistrationDate { get; private set; }
         //public ICollection<Parkinglot> Parkinglots { get; } = new List<Parkinglot>();
         //public ICollection<Division> Divisions { get; } = new List<Division>();

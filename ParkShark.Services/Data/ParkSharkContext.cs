@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 using ParkShark.Model.Allocations;
 using ParkShark.Model.Divisions;
+using ParkShark.Model.MemberShips;
 using ParkShark.Model.Parkinglots;
 using ParkShark.Model.Parkinglots.BuildingTypes;
 using ParkShark.Model.Persons;
@@ -9,20 +12,34 @@ namespace ParkShark.Services.Data
 {
     public partial class ParkSharkContext : DbContext
     {
+        private readonly ILoggerFactory _loggerFactory;
+
         public virtual DbSet<Division> Divisions { get; set; }
         public virtual DbSet<Person> Persons { get; set; }
         public virtual DbSet<Parkinglot> Parkinglots { get; set; }
         public virtual DbSet<Allocation> Allocations { get; set; }
+        public virtual DbSet<MemberShip> MemberShips { get; set; }
 
-        public ParkSharkContext(DbContextOptions<ParkSharkContext> options) : base(options)
+        public ParkSharkContext(DbContextOptions<ParkSharkContext> options, ILoggerFactory loggerFactory) : base(options)
         {
+            _loggerFactory = loggerFactory;
         }
 
+        public ParkSharkContext(ILoggerFactory loggerFactory)
+        {
+            _loggerFactory = loggerFactory;
+        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+
+            optionsBuilder.UseLoggerFactory(_loggerFactory);
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Division>()
                 .ToTable("Divisions")
-                .HasKey("ID");
+                .HasKey(d=>d.Id);
 
             modelBuilder.Entity<Division>()
                 .HasOne(d => d.ParentDivision)
@@ -38,9 +55,12 @@ namespace ParkShark.Services.Data
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<Division>()
+                .Property(prop => prop.Id).HasColumnName("ID");
+
             modelBuilder.Entity<Person>()
                 .ToTable("Persons")
-                .HasKey("Id");
+                .HasKey(p=>p.Id);
 
             modelBuilder.Entity<Person>()
                 .OwnsOne(person => person.PersonAddress,
@@ -62,7 +82,7 @@ namespace ParkShark.Services.Data
 
             modelBuilder.Entity<Parkinglot>()
                 .ToTable("ParkingLots")
-                .HasKey("Id");
+                .HasKey(pl=>pl.Id);
 
             modelBuilder.Entity<Parkinglot>()
                 .OwnsOne(parkinglot => parkinglot.PlAddress,
@@ -73,6 +93,10 @@ namespace ParkShark.Services.Data
                         plAddress.Property(prop => prop.PostalCode).HasColumnName("PostalCode");
                         plAddress.Property(prop => prop.CityName).HasColumnName("CityName");
                     });
+
+            modelBuilder.Entity<MemberShip>()
+                .ToTable("MemberShips")
+                .HasKey(ms=>ms.Id);
 
             modelBuilder.Entity<Parkinglot>()
                 .HasOne(pl => pl.PlDivision)
@@ -95,11 +119,11 @@ namespace ParkShark.Services.Data
 
             modelBuilder.Entity<BuildingType>()
                 .ToTable("BuildingTypes")
-                .HasKey("Id");
+                .HasKey(bt=>bt.Id);
 
             modelBuilder.Entity<Allocation>()
                 .ToTable("Allocations")
-                .HasKey("Id");
+                .HasKey(a=>a.Id);
 
             modelBuilder.Entity<Allocation>()
                 .HasOne(al => al.MemberPerson)
@@ -113,6 +137,12 @@ namespace ParkShark.Services.Data
                 .WithMany()
                 .HasForeignKey(al => al.ParkinglotId)
                 .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Person>()
+                .HasOne(p => p.MemberShip)
+                .WithMany()
+                .HasForeignKey(p => p.MembershipId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(modelBuilder);
