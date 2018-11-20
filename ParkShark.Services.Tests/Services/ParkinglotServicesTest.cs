@@ -92,19 +92,58 @@ namespace ParkShark.Services.Tests.Services
         }
 
         [Fact]
-        public void GivenAParkinglotService_WhenGetAllParkinglots_ThenReposotoryReceivedGetAllParkinglots()
+        public void GivenAParkinglotService_WhenGetAllParkinglots_ThenRepositoryReceivedGetAllParkinglots()
         {
+
             //Given
             Parkinglot newParkinglot = new Parkinglot();
             List<Parkinglot> testParkinglots = new List<Parkinglot>() { newParkinglot };
 
             IParkinglotRepository parkinglotRepository = Substitute.For<IParkinglotRepository>();
             var parkinglotService = new ParkinglotService(parkinglotRepository);
+
             //When
             var returnParkinglot = parkinglotService.GetAll();
 
             //Then
             parkinglotRepository.Received().GetAllParkinglots();
+        }
+
+        [Fact]
+        public void GivenAParkinglotService_WhenReduceAvailablePlacesParkinglot_ThenThrowExceptionIfGoesNegative()
+        {
+            //Given
+            Parkinglot newParkinglot = new Parkinglot()
+            {
+                AvailablePlaces = 0
+            };
+            IParkinglotRepository parkinglotRepository = Substitute.For<IParkinglotRepository>();
+
+            var parkinglotService = new ParkinglotService(parkinglotRepository);
+            //When
+            Action action = () => parkinglotService.ReduceAvailableParkingSpots(newParkinglot);
+
+            //Then
+            Assert.Throws< EntityNotValidException> (action);
+        }
+
+        [Fact]
+        public void GivenAParkinglotService_WhenReduceAvailablePlacesParkinglot_ThenReduceAvailablePlaces()
+        {
+            //Given
+            Parkinglot newParkinglot = new Parkinglot()
+            {
+                AvailablePlaces = 5
+            };
+            IParkinglotRepository parkinglotRepository = Substitute.For<IParkinglotRepository>();
+
+            var parkinglotService = new ParkinglotService(parkinglotRepository);
+            parkinglotRepository.UpdateParkinglot(newParkinglot).Returns(true);
+            //When
+            parkinglotService.ReduceAvailableParkingSpots(newParkinglot);
+
+            //Then
+            Assert.Equal(4, newParkinglot.AvailablePlaces);
         }
     }
 }

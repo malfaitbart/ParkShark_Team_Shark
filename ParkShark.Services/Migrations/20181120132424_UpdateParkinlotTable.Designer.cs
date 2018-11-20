@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ParkShark.Services.Data;
 
 namespace ParkShark.Services.Migrations
 {
     [DbContext(typeof(ParkSharkContext))]
-    partial class ParkSharkContextModelSnapshot : ModelSnapshot
+    [Migration("20181120132424_UpdateParkinlotTable")]
+    partial class UpdateParkinlotTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,23 +70,6 @@ namespace ParkShark.Services.Migrations
                     b.HasData(
                         new { ID = 1, DirectorID = 1, Name = "Division1", OriginalName = "Original1" }
                     );
-                });
-
-            modelBuilder.Entity("ParkShark.Model.MemberShips.MemberShip", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<double>("AllocationCost");
-
-                    b.Property<double>("MaxAllocationTime");
-
-                    b.Property<double>("MonthlyCost");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MemberShips");
                 });
 
             modelBuilder.Entity("ParkShark.Model.Parkinglots.BuildingTypes.BuildingType", b =>
@@ -159,8 +144,6 @@ namespace ParkShark.Services.Migrations
                     b.Property<DateTime?>("RegistrationDate");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MembershipId");
 
                     b.ToTable("Persons");
 
@@ -245,11 +228,6 @@ namespace ParkShark.Services.Migrations
 
             modelBuilder.Entity("ParkShark.Model.Persons.Person", b =>
                 {
-                    b.HasOne("ParkShark.Model.MemberShips.MemberShip", "MemberShip")
-                        .WithMany()
-                        .HasForeignKey("MembershipId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.OwnsOne("ParkShark.Model.Persons.LicensePlates.LicensePlate", "LicensePlate", b1 =>
                         {
                             b1.Property<int?>("PersonId")

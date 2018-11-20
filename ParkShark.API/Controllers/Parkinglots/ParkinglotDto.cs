@@ -8,6 +8,7 @@ namespace ParkShark.API.Controllers.Parkinglots
         public int DivisionId { get; set; }
         public string Name { get; set; }
         public int Capacity { get; set; }
+        public int AvailablePlaces { get; set; }
         public decimal PricePerHour { get; set; }
         public int ContactPersonId { get; set; }
         public Address PlAddress { get; set; }

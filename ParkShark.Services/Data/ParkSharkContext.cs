@@ -128,7 +128,7 @@ namespace ParkShark.Services.Data
             modelBuilder.Entity<Allocation>()
                 .HasOne(al => al.MemberPerson)
                 .WithMany()
-                .HasForeignKey(al => al.MemberPeronId)
+                .HasForeignKey(al => al.MemberPersonId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
 

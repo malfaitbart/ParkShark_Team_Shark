@@ -16,13 +16,13 @@ namespace ParkShark.Model.Parkinglots
         public Division PlDivision { get; set; }
         public string Name { get; set; }
         public int Capacity { get; set; }
+        public int AvailablePlaces { get; set; }
         public decimal PricePerHour { get; set; }
         public int ContactPersonId { get; set; }
         public Person ContactPerson { get; set; }
         public Address PlAddress { get; set; }
         public int BuildingTypeId { get; set; }
         public BuildingType PlBuildingType { get; set; }
-
 
         public void CheckValues()
         {

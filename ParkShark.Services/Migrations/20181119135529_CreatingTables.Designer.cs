@@ -28,7 +28,7 @@ namespace ParkShark.Services.Migrations
 
                     b.Property<DateTime?>("EndTime");
 
-                    b.Property<int>("MemberPeronId");
+                    b.Property<int>("MemberPersonId");
 
                     b.Property<int>("ParkinglotId");
 
@@ -38,7 +38,7 @@ namespace ParkShark.Services.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MemberPeronId");
+                    b.HasIndex("MemberPersonId");
 
                     b.HasIndex("ParkinglotId");
 
@@ -154,7 +154,7 @@ namespace ParkShark.Services.Migrations
                 {
                     b.HasOne("ParkShark.Model.Persons.Person", "MemberPerson")
                         .WithMany()
-                        .HasForeignKey("MemberPeronId")
+                        .HasForeignKey("MemberPersonId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("ParkShark.Model.Parkinglots.Parkinglot", "Parkinglot")

@@ -58,8 +58,8 @@ namespace ParkShark.API.Tests.Controllers.Parkinglots
             //                .Returns(x => throw new EntityNotValidException("Name required", this));
 
             Action action = () => _parkinglotController.Createparkinglot(parkinglotDto);
-            var exeption = Assert.Throws<EntityNotValidException>(action);
-            Assert.Contains("Name required", exeption.Message);
+            var exception = Assert.Throws<EntityNotValidException>(action);
+            Assert.Contains("Name required", exception.Message);
 
             ////then
             //Assert.IsType<BadRequestObjectResult>(returnValue);

@@ -28,6 +28,7 @@ namespace ParkShark.Services.Data
             Id = 1,
             BuildingTypeId = 1,
             Capacity = 50,
+            AvailablePlaces = 50,
             ContactPersonId = 1,
             DivisionId = 1,
             Name = "Lot1",

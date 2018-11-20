@@ -17,7 +17,7 @@ namespace ParkShark.API.Controllers.Allocations
             return new AllocationDto
             {
                 Id = domainObject.Id,
-                MemberPeronId = domainObject.MemberPeronId,
+                MemberPeronId = domainObject.MemberPersonId,
                 ParkinglotId = domainObject.ParkinglotId,
             };
         }
@@ -27,7 +27,7 @@ namespace ParkShark.API.Controllers.Allocations
             return new Allocation
             {
                 Id = dtoObject.Id,
-                MemberPeronId = dtoObject.MemberPeronId,
+                MemberPersonId = dtoObject.MemberPeronId,
                 ParkinglotId = dtoObject.ParkinglotId,
             };
         }

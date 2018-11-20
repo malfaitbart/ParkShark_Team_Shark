@@ -16,6 +16,7 @@ namespace ParkShark.Model.Tests.Parkinglots
             {
                 Name = "test",
                 Capacity = 1,
+                AvailablePlaces = 1,
                 DivisionId = 2,
                 PricePerHour = 3,
                 ContactPersonId = 4,
@@ -43,6 +44,7 @@ namespace ParkShark.Model.Tests.Parkinglots
             {
                 Name="test",
                 Capacity = 1,
+                AvailablePlaces = 1,
                 DivisionId = 2,
                 ContactPersonId = 4,
                 PlAddress = new Address(),
@@ -53,8 +55,8 @@ namespace ParkShark.Model.Tests.Parkinglots
             Action action = () => testParkinglot.CheckValues();
 
             //then
-            var exeption = Assert.Throws<EntityNotValidException>(action);
-            Assert.Contains("is required", exeption.Message);
+            var exception = Assert.Throws<EntityNotValidException>(action);
+            Assert.Contains("is required", exception.Message);
         }
     }
 }

@@ -77,6 +77,7 @@ namespace ParkShark.Integration.Tests.Controllers
                 {
                     BuildingTypeId = 1,
                     Capacity = 5,
+                    AvailablePlaces = 5,
                     ContactPersonId = 1,
                     DivisionId = 1,
                     Name = "Name",
@@ -170,6 +171,7 @@ namespace ParkShark.Integration.Tests.Controllers
                 {
                     BuildingTypeId = 1,
                     Capacity = 5,
+                    AvailablePlaces = 5,
                     ContactPersonId = 1,
                     DivisionId = 1,
                     Name = "Name",

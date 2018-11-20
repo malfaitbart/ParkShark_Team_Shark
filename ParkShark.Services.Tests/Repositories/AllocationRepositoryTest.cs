@@ -57,20 +57,20 @@ namespace ParkShark.Services.Tests.Repositories
                     StreetNumber = streetnr
                 },
                 mail,
-                new LicensePlate(country,licenseplate)
+                new LicensePlate(licenseplate, country)
             );
 
             var allocation = new Allocation()
             {
                 ParkinglotId = 5,
-                MemberPeronId = 1
+                MemberPersonId = 1
             };
 
             var options = new DbContextOptionsBuilder<ParkSharkContext>()
                 .UseInMemoryDatabase("parkshark" + Guid.NewGuid().ToString("n"))
                 .Options;
 
-
+            
             //When
             using (var context = new ParkSharkContext(options))
             {
@@ -84,29 +84,6 @@ namespace ParkShark.Services.Tests.Repositories
             }
         }
 
-        [Fact]
-        public void GivenAnAllocation_WhenStartAllocationWithBadInfo_ThenRepoReturnsException()
-        {
-            //Given
-            var allocation = new Allocation();
-
-            var options = new DbContextOptionsBuilder<ParkSharkContext>()
-                .UseInMemoryDatabase("parkshark" + Guid.NewGuid().ToString("n"))
-                .Options;
-
-
-
-            //When
-            using (var context = new ParkSharkContext(options))
-            {
-                AllocationRepository allocationRepository =
-                    new AllocationRepository(context, _personRepository, _parkinglotRepository);
-                _personRepository.GetById(1).ReturnsNull();
-                Action action = () => allocationRepository.SaveNewAllocation(allocation);
-                //Then
-                Assert.Throws<EntityNotFoundException>(action);
-            }
-        }
 
     }
 }
