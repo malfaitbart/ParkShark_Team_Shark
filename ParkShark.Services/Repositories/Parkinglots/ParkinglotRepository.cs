@@ -19,19 +19,25 @@ namespace ParkShark.Services.Repositories.Parkinglots
 
         public List<Parkinglot> GetAllParkinglots()
         {
-            return _context.Parkinglots.AsNoTracking().ToList();
+            return _context.Parkinglots.ToList();
         }
 
         public Parkinglot GetOneParkinglot(int id)
         {
-            return _context.Parkinglots.AsNoTracking().FirstOrDefault(parkinglot => parkinglot.Id == id);
+            return _context.Parkinglots.FirstOrDefault(parkinglot => parkinglot.Id == id);
         }
+
+        public bool UpdateParkinglot(Parkinglot parkinglot)
+        {
+            _context.Update(parkinglot);
+            return (_context.SaveChanges() == 1);
+        }
+
 
         public bool SaveNewParkinglot(Parkinglot parkinglot)
         {
             _context.Add(parkinglot);
-            _context.SaveChanges();
-            return true;
+            return (_context.SaveChanges() == 1);
         }
     }
 

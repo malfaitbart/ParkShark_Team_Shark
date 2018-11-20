@@ -3,6 +3,7 @@ using ParkShark.Services.Repositories.Persons;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using ParkShark.Infrastructure.Exceptions;
 
 namespace ParkShark.Services.Services.Persons
 {
@@ -19,6 +20,16 @@ namespace ParkShark.Services.Services.Persons
         {
             return _personRepository.GetAll();
         }
+
+        //public Person GetById(int id)
+        //{
+        //    var personFound = _personRepository.GetById(id);
+        //    if (personFound == null)
+        //    {
+        //        throw new EntityNotFoundException("GetById", "Person", id.ToString());
+        //    }
+        //    return personFound;
+        //}
 
         public Person GetById(int id)
         {

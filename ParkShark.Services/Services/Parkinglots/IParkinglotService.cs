@@ -10,5 +10,6 @@ namespace ParkShark.Services.Services.Parkinglots
         Parkinglot CreateParkinglot(Parkinglot newParkinglot);
         List<Parkinglot> GetAll();
         Parkinglot GetOneParkinglot(int id);
+        bool ReduceAvailableParkingSpots(Parkinglot parkinglot);
     }
 }

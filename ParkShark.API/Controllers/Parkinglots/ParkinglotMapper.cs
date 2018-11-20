@@ -14,9 +14,11 @@ namespace ParkShark.API.Controllers.Parkinglots
                 ContactPersonId = domainObject.ContactPersonId,
                 Name = domainObject.Name,
                 Capacity = domainObject.Capacity,
+                AvailablePlaces=domainObject.AvailablePlaces,
                 PricePerHour = domainObject.PricePerHour,
                 PlAddress = domainObject.PlAddress,
-                BuildingTypeId = domainObject.BuildingTypeId
+                BuildingTypeId = domainObject.BuildingTypeId,
+                Id =  domainObject.Id
             };
 
             return dtoParkinglot;
@@ -30,6 +32,7 @@ namespace ParkShark.API.Controllers.Parkinglots
                  ContactPersonId = dtoObject.ContactPersonId,
                  Name= dtoObject.Name,
                  Capacity = dtoObject.Capacity,
+                 AvailablePlaces = dtoObject.Capacity,
                  PricePerHour = dtoObject.PricePerHour,
                  PlAddress = dtoObject.PlAddress,
                  BuildingTypeId= dtoObject.BuildingTypeId

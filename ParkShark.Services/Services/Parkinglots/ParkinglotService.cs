@@ -38,5 +38,16 @@ namespace ParkShark.Services.Services.Parkinglots
 
             return parkinglot;
         }
+
+        public bool ReduceAvailableParkingSpots(Parkinglot parkinglot)
+        {
+            if (parkinglot.AvailablePlaces == 0 )
+            {
+                throw new EntityNotValidException("Parkinglot", parkinglot.Id.ToString());
+            }
+            parkinglot.AvailablePlaces--;
+            return _parkinglotRepository.UpdateParkinglot(parkinglot);
+        }
+
     }
 }

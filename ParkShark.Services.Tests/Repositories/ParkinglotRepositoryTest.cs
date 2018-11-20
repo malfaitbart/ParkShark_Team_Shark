@@ -8,6 +8,7 @@ using ParkShark.Services.Data;
 using ParkShark.Services.Repositories.Parkinglots;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using ParkShark.Model.Persons.LicensePlates;
 using Xunit;
 
@@ -60,8 +61,6 @@ namespace ParkShark.Services.Tests.Repositories
                 //Then
                 Assert.IsType<List<Parkinglot>>(result);
             }
-
-
         }
 
         [Fact]
@@ -136,6 +135,7 @@ namespace ParkShark.Services.Tests.Repositories
                 {
                     BuildingTypeId = 1,
                     Capacity = 5,
+                    AvailablePlaces = 5,
                     ContactPersonId = 1,
                     DivisionId = 1,
                     Name = "Name",
@@ -159,6 +159,86 @@ namespace ParkShark.Services.Tests.Repositories
 
                 //Then
                 Assert.Equal("Name", result.Name);
+            }
+
+
+        }
+
+        [Fact]
+        public void GivenListOfParkinglots_WhenReduceParkinglotAvailablePlaces_ThenUpdateInDatabase()
+        {
+            //Given
+
+            var options = new DbContextOptionsBuilder<ParkSharkContext>()
+                .UseInMemoryDatabase("parkshark" + Guid.NewGuid().ToString("n"))
+                .Options;
+
+            //When
+            using (var context = new ParkSharkContext(options))
+            {
+                #region fillingInMemoryDatabase
+
+                Address adress = new Address()
+                {
+                    StreetNumber = "1",
+                    StreetName = "tt",
+                    CityName = "er",
+                    PostalCode = "4153",
+                };
+                context.Persons.Add(new Person(
+                    1,
+                    "Person1",
+                    "MobilePhone1",
+                    "00",
+                    adress,
+                    "EmailAdress@test.be",
+                    new LicensePlate()
+                ));
+
+                context.Set<BuildingType>().Add(new BuildingType()
+                {
+                    Id = 1,
+                    Name = "Underground"
+                });
+
+                context.Divisions.Add(new Division()
+                {
+                    ID = 1,
+                    Name = "Division1",
+                    OriginalName = "Original1",
+                    DirectorID = 1
+                });
+
+                Parkinglot parkinglot = new Parkinglot()
+                {
+                    BuildingTypeId = 1,
+                    Capacity = 5,
+                    AvailablePlaces = 5,
+                    ContactPersonId = 1,
+                    DivisionId = 1,
+                    Name = "Name",
+                    Id = 1,
+                    PlAddress = new Address()
+                    {
+                        StreetNumber = "1",
+                        StreetName = "tt",
+                        CityName = "er",
+                        PostalCode = "4153"
+                    },
+                    PricePerHour = 10
+                };
+                context.Add(parkinglot);
+
+                context.SaveChanges();
+                #endregion fillingInMemoryDatabase
+
+                parkinglot.AvailablePlaces--;
+            
+                IParkinglotRepository parkinglotRepository = new ParkinglotRepository(context);
+                parkinglotRepository.UpdateParkinglot(parkinglot);
+
+                //Then
+                Assert.Equal(4, context.Parkinglots.SingleOrDefault(p => p.Id == 1).AvailablePlaces);
             }
 
 

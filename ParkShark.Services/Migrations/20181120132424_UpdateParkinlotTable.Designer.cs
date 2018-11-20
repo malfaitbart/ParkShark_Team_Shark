@@ -10,8 +10,8 @@ using ParkShark.Services.Data;
 namespace ParkShark.Services.Migrations
 {
     [DbContext(typeof(ParkSharkContext))]
-    [Migration("20181119135529_CreatingTables")]
-    partial class CreatingTables
+    [Migration("20181120132424_UpdateParkinlotTable")]
+    partial class UpdateParkinlotTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -96,6 +96,8 @@ namespace ParkShark.Services.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("AvailablePlaces");
+
                     b.Property<int>("BuildingTypeId");
 
                     b.Property<int>("Capacity");
@@ -119,7 +121,7 @@ namespace ParkShark.Services.Migrations
                     b.ToTable("ParkingLots");
 
                     b.HasData(
-                        new { Id = 1, BuildingTypeId = 1, Capacity = 50, ContactPersonId = 1, DivisionId = 1, Name = "Lot1", PricePerHour = 0m }
+                        new { Id = 1, AvailablePlaces = 50, BuildingTypeId = 1, Capacity = 50, ContactPersonId = 1, DivisionId = 1, Name = "Lot1", PricePerHour = 0m }
                     );
                 });
 

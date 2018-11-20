@@ -24,7 +24,7 @@ namespace ParkShark.API.Controllers.Allocations
         public ActionResult<AllocationDto> StartAllocation([FromBody]AllocationDto allocationDto)
         {
             var newAllocation = _allocationMapper.DtoToDomain(allocationDto);
-            newAllocation = _allocationService.StartAllocation(newAllocation);
+            newAllocation = _allocationService.StartAllocation(newAllocation, allocationDto.MemberLicensePlate);
             return Created($"api/Allocations/{newAllocation.Id}", newAllocation.Id);
         }
     }

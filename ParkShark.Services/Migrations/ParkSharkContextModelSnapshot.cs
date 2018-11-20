@@ -26,7 +26,7 @@ namespace ParkShark.Services.Migrations
 
                     b.Property<DateTime?>("EndTime");
 
-                    b.Property<int>("MemberPeronId");
+                    b.Property<int>("MemberPersonId");
 
                     b.Property<int>("ParkinglotId");
 
@@ -36,7 +36,7 @@ namespace ParkShark.Services.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MemberPeronId");
+                    b.HasIndex("MemberPersonId");
 
                     b.HasIndex("ParkinglotId");
 
@@ -94,6 +94,8 @@ namespace ParkShark.Services.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("AvailablePlaces");
+
                     b.Property<int>("BuildingTypeId");
 
                     b.Property<int>("Capacity");
@@ -117,7 +119,7 @@ namespace ParkShark.Services.Migrations
                     b.ToTable("ParkingLots");
 
                     b.HasData(
-                        new { Id = 1, BuildingTypeId = 1, Capacity = 50, ContactPersonId = 1, DivisionId = 1, Name = "Lot1", PricePerHour = 0m }
+                        new { Id = 1, AvailablePlaces = 50, BuildingTypeId = 1, Capacity = 50, ContactPersonId = 1, DivisionId = 1, Name = "Lot1", PricePerHour = 0m }
                     );
                 });
 
@@ -152,7 +154,7 @@ namespace ParkShark.Services.Migrations
                 {
                     b.HasOne("ParkShark.Model.Persons.Person", "MemberPerson")
                         .WithMany()
-                        .HasForeignKey("MemberPeronId")
+                        .HasForeignKey("MemberPersonId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("ParkShark.Model.Parkinglots.Parkinglot", "Parkinglot")

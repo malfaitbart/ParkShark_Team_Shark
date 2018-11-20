@@ -169,7 +169,7 @@ namespace ParkShark.Services.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Allocations_MemberPeronId",
                 table: "Allocations",
-                column: "MemberPeronId");
+                column: "MemberPersonId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Allocations_ParkinglotId",

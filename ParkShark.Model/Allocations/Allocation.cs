@@ -10,7 +10,7 @@ namespace ParkShark.Model.Allocations
     public class Allocation
     {
         public string Id { get; set; }
-        public int MemberPeronId { get; set; }
+        public int MemberPersonId { get; set; }
         public Person MemberPerson { get; set; }
         public int ParkinglotId { get; set; }
         public Parkinglot Parkinglot { get; set; }
