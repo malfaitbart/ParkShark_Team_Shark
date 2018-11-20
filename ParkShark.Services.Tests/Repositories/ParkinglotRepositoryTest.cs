@@ -115,7 +115,7 @@ namespace ParkShark.Services.Tests.Repositories
                     "00",
                     adress,
                     "EmailAdress@test.be",
-                    new LicensePlate()
+                    new LicensePlate("123", "be")
                 ));
 
                 context.Set<BuildingType>().Add(new BuildingType()

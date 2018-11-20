@@ -59,7 +59,7 @@ namespace ParkShark.Integration.Tests.Controllers.Allocations
                     "000",
                     adress,
                     "EmailAdress@test.be",
-                    new LicensePlate()
+                    new LicensePlate("123", "be")
                 ));
 
                 context.Set<BuildingType>().Add(new BuildingType()
