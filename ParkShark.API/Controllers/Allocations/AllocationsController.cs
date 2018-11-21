@@ -27,6 +27,13 @@ namespace ParkShark.API.Controllers.Allocations
             newAllocation = _allocationService.StartAllocation(newAllocation, allocationDto.MemberLicensePlate);
             return Created($"api/Allocations/{newAllocation.Id}", newAllocation.Id);
         }
+
+        [HttpPost]
+        public ActionResult<AllocationDto> StopAllocation([FromBody]AllocationDto allocationDto)
+        {
+            _allocationService.StopAllocation(allocationDto.MemberPeronId, allocationDto.Id);
+            return Ok();
+        }
     }
 
 

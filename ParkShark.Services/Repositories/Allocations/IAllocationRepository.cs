@@ -8,5 +8,7 @@ namespace ParkShark.Services.Repositories.Allocations
     public interface IAllocationRepository
     {
         Allocation SaveNewAllocation(Allocation newAllocation);
+        Allocation GetAllocationById(string allocationDtoId);
+        bool UpdateAllocation(Allocation allocation);
     }
 }

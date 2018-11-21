@@ -49,5 +49,10 @@ namespace ParkShark.Services.Services.Parkinglots
             return _parkinglotRepository.UpdateParkinglot(parkinglot);
         }
 
+        public bool AddAvailableParkingSpots(Parkinglot parkinglot)
+        {
+            parkinglot.AvailablePlaces++;
+            return _parkinglotRepository.UpdateParkinglot(parkinglot);
+        }
     }
 }

@@ -30,17 +30,12 @@ namespace ParkShark.Services.Services.Allocations
         {
 
             Parkinglot parkinglotToChange = _parkinglotService.GetOneParkinglot(newAllocation.ParkinglotId);
-            Person person = _personService.GetById(newAllocation.MemberPersonId);
+            Person person = GetPersonFromAllocation(newAllocation);
 
-            if (person != null && person.LicensePlate.Equals(memberLicensePlate))
+            if (person.LicensePlate.Equals(memberLicensePlate))
             {
                 _parkinglotService.ReduceAvailableParkingSpots(parkinglotToChange);
             }
-            if (person == null)
-            {
-                throw new EntityNotFoundException("CheckPersonExist", "Person", newAllocation.MemberPersonId.ToString());
-            }
-
             if (!person.LicensePlate.Equals(memberLicensePlate))
             {
                 throw new EntityNotValidException("Licenseplate", memberLicensePlate);
@@ -51,5 +46,39 @@ namespace ParkShark.Services.Services.Allocations
 
 
 
+        public bool StopAllocation(int allocationDtoMemberPeronId, string allocationDtoId)
+        {
+            Allocation stopAllocation = _allocationRepository.GetAllocationById(allocationDtoId);
+            if (stopAllocation == null)
+            {
+                throw new EntityNotFoundException("CheckAllocationExist", "Allocation", stopAllocation.Id);
+            }
+            if (stopAllocation.Status != StatusAllocation.Active)
+            {
+                throw new EntityNotValidException("StatusAllocation", stopAllocation);
+            }
+            if (stopAllocation.MemberPersonId != allocationDtoMemberPeronId)
+            {
+                throw new EntityNotValidException("MemberAllocation", stopAllocation);
+            }
+            stopAllocation.Status = StatusAllocation.Passive;
+            stopAllocation.EndTime=DateTime.Now;
+            //stopAllocation.Parkinglot.AvailablePlaces++;
+            _parkinglotService.AddAvailableParkingSpots(stopAllocation.Parkinglot);
+           return _allocationRepository.UpdateAllocation(stopAllocation);
+
+        }
+
+        private Person GetPersonFromAllocation(Allocation newAllocation)
+        {
+            Person person = _personService.GetById(newAllocation.MemberPersonId);
+
+            if (person == null)
+            {
+                throw new EntityNotFoundException("CheckPersonExist", "Person", newAllocation.MemberPersonId.ToString());
+            }
+
+            return person;
+        }
     }
 }

@@ -36,5 +36,15 @@ namespace ParkShark.Services.Repositories.Allocations
             return newAllocation;
         }
 
+        public Allocation GetAllocationById(string allocationDtoId)
+        {
+            return _context.Allocations.FirstOrDefault(al => al.Id == allocationDtoId);
+        }
+
+        public bool UpdateAllocation(Allocation allocation)
+        {
+            _context.Update(allocation);
+            return (_context.SaveChanges() == 1);
+        }
     }
 }

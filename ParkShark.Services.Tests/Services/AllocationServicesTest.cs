@@ -99,5 +99,26 @@ namespace ParkShark.Services.Tests.Services
 
         }
 
+        [Fact]
+        public void GivenAnAllocationService_WhenStopAllocation_ThenReturnTrue()
+        {
+            //Given
+            Parkinglot parkinglot = new Parkinglot() { Id = 1 };
+            Allocation stopAllocation = new Allocation()
+            {
+                MemberPersonId = 1, ParkinglotId = 1, Status = StatusAllocation.Active,
+                Parkinglot = parkinglot
+            };
+            _parkinglotService.AddAvailableParkingSpots(stopAllocation.Parkinglot).Returns(true);
+            _allocationRepository.GetAllocationById("AllocationID").Returns(stopAllocation);
+            _allocationRepository.UpdateAllocation(stopAllocation).Returns(true);
+            var allocationService = new AllocationService(_allocationRepository, _parkinglotService, _personService);
+            //When
+            var result = allocationService.StopAllocation(1, "AllocationID");
+            
+            //Then
+            Assert.True(result);
+        }
+
     }
 }

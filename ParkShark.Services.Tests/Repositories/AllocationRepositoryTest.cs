@@ -12,6 +12,7 @@ using ParkShark.Services.Repositories.Allocations;
 using ParkShark.Services.Repositories.Parkinglots;
 using ParkShark.Services.Repositories.Persons;
 using System;
+using System.Linq;
 using Xunit;
 
 namespace ParkShark.Services.Tests.Repositories
@@ -84,6 +85,33 @@ namespace ParkShark.Services.Tests.Repositories
             }
         }
 
+        [Fact]
+        public void GivenAnAllocation_WhenStopAllocation_ThenRepoReturnsAllocationWithStatusAndStartTime()
+        {
+            var allocation = new Allocation()
+            {
+                Id="1111",
+                ParkinglotId = 5,
+                MemberPersonId = 1,
+            };
+
+            var options = new DbContextOptionsBuilder<ParkSharkContext>()
+                .UseInMemoryDatabase("parkshark" + Guid.NewGuid().ToString("n"))
+                .Options;
+
+
+            //When
+            using (var context = new ParkSharkContext(options))
+            {
+                context.Add(allocation);
+                context.SaveChanges();
+                allocation.Status = StatusAllocation.Passive;
+                AllocationRepository allocationRepository = new AllocationRepository(context, _personRepository, _parkinglotRepository);
+                var result = allocationRepository.UpdateAllocation(allocation);
+                //Then
+                Assert.Equal("Passive", context.Allocations.SingleOrDefault(al => al.Id =="1111").Status.ToString());
+            }
+        }
 
     }
 }

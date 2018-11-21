@@ -9,5 +9,6 @@ namespace ParkShark.Services.Services.Allocations
     public interface IAllocationService
     {
         Allocation StartAllocation(Allocation newAllocation, LicensePlate memberLicensePlate);
+        bool StopAllocation(int allocationDtoMemberPeronId, string allocationDtoId);
     }
 }
