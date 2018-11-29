@@ -37,6 +37,7 @@ namespace ParkShark.API
         {
             Configuration = configuration;
             ApplicationLogging.LoggerFactory = logFactory;
+            //Code duplication of DesignTimeDbContextFactory, please refactor
             var foo = Environment.GetEnvironmentVariable("ParkSharkSql", EnvironmentVariableTarget.User);
             if (foo != null && foo.Equals("SqlServer"))
             {
@@ -72,6 +73,7 @@ namespace ParkShark.API
             services.AddSingleton<PersonMapper>();
             services.AddSingleton<AllocationMapper>();
 
+            //This should be scoped, you can leverage already persisted data from previous methods in the http request/response call
             services.AddTransient<ParkSharkContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

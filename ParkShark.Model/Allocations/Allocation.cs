@@ -9,6 +9,7 @@ namespace ParkShark.Model.Allocations
 {
     public class Allocation
     {
+        //Use GUID as a type for Id, EF Core can handle this! Plus, indexing on a Guid (UniqueIdentifier) is faster than a string (nvarchar)
         public string Id { get; set; }
         public int MemberPersonId { get; set; }
         public Person MemberPerson { get; set; }

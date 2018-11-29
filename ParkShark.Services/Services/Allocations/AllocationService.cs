@@ -12,7 +12,7 @@ using ParkShark.Services.Services.Persons;
 
 namespace ParkShark.Services.Services.Allocations
 {
-    public class AllocationService: IAllocationService
+    public class AllocationService : IAllocationService
     {
         private readonly IAllocationRepository _allocationRepository;
         private readonly IParkinglotService _parkinglotService;
@@ -45,7 +45,7 @@ namespace ParkShark.Services.Services.Allocations
         }
 
 
-
+        //This is great code, concerns are separated, explicit exception are thrown
         public bool StopAllocation(int allocationDtoMemberPeronId, string allocationDtoId)
         {
             Allocation stopAllocation = _allocationRepository.GetAllocationById(allocationDtoId);
@@ -62,15 +62,18 @@ namespace ParkShark.Services.Services.Allocations
                 throw new EntityNotValidException("MemberAllocation", stopAllocation);
             }
             stopAllocation.Status = StatusAllocation.Passive;
-            stopAllocation.EndTime=DateTime.Now;
+            stopAllocation.EndTime = DateTime.Now;
             //stopAllocation.Parkinglot.AvailablePlaces++;
             _parkinglotService.AddAvailableParkingSpots(stopAllocation.Parkinglot);
-           return _allocationRepository.UpdateAllocation(stopAllocation);
+            return _allocationRepository.UpdateAllocation(stopAllocation);
 
         }
 
         private Person GetPersonFromAllocation(Allocation newAllocation)
         {
+            //MemberPersonId is the only property used from newAllocation,consider changing the method signature to only accept (int memberPersonId)
+            //This makes you tests easier, too
+            //As you don't need to construct an Allocation object in order to test it
             Person person = _personService.GetById(newAllocation.MemberPersonId);
 
             if (person == null)

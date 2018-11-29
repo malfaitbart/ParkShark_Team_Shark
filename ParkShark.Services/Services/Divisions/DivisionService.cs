@@ -44,6 +44,7 @@ namespace ParkShark.Services.Services.Divisions
         public bool UpdateDivision(Division division)
         {
             _divisionRepository.UpdateDivision(division);
+            //Don't just return true, return _divisionRepository.UpdateDivision(division);
             return true;
         }
     }

@@ -33,11 +33,16 @@ namespace ParkShark.Services.Repositories.Allocations
         {
             _context.Add(newAllocation);
             _context.SaveChanges();
+
+            //Make sure the changes are saved, throw exception is case this was not
+            //if(_context.SaveChanges() == 1) throw Exception
+
             return newAllocation;
         }
 
         public Allocation GetAllocationById(string allocationDtoId)
         {
+            //Use Find and FindAsync from EF Core
             return _context.Allocations.FirstOrDefault(al => al.Id == allocationDtoId);
         }
 
