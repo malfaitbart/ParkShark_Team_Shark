@@ -22,6 +22,7 @@ namespace ParkShark.Model.Divisions
 
         public Division(string name, string originalName, int directorID, int? parentDivisionId)
         {
+            //No validation of the domain class
             Name = name;
             OriginalName = originalName;
             DirectorID = directorID;

@@ -23,6 +23,7 @@ namespace ParkShark.Services.Repositories.Persons
 
         public Person GetById(int id)
         {
+            //Use Find, FindAsync from EF Core
             return _context.Persons.FirstOrDefault(p => p.Id == id);
         }
 
@@ -31,6 +32,7 @@ namespace ParkShark.Services.Repositories.Persons
             _context.Add(person);
             _context.SaveChanges();
 
+            //return (_context.SaveChanges() == 1) make it explicit that the changes were saved
             return true;
         }
     }

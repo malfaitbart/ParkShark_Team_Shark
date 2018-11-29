@@ -24,6 +24,7 @@ namespace ParkShark.Services.Repositories.Parkinglots
 
         public Parkinglot GetOneParkinglot(int id)
         {
+            //Use EF Core methods Find and FindAsync (this is faster in EF, cuts off the LINQ overhead)
             return _context.Parkinglots.FirstOrDefault(parkinglot => parkinglot.Id == id);
         }
 

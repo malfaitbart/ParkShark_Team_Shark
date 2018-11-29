@@ -37,6 +37,11 @@ namespace ParkShark.Services.Data
         {
             base.OnConfiguring(optionsBuilder);
 
+            //Remove this and use the options constructor
+            //new DbContextOptionsBuilder<ParkSharkContext>()
+            //    .UseSqlServer($"Data Source={_connectionstring};Initial Catalog=ParkShark;Integrated Security=True;")
+            //    .UseLoggerFactory(_loggerFactory)
+            //    .Options;
             optionsBuilder.UseLoggerFactory(_loggerFactory);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -47,6 +52,8 @@ namespace ParkShark.Services.Data
 
             modelBuilder.Entity<Division>()
                 .HasOne(d => d.ParentDivision)
+                //The many part is not used in the codebase, consider omitting this with .WithMany()
+                //Remove the many-navigation property as well, this cuts off the overhead on EF Core
                 .WithMany(pd => pd.Divisions)
                 .HasForeignKey(d => d.ParentDivisionId)
                 .OnDelete(DeleteBehavior.Restrict);

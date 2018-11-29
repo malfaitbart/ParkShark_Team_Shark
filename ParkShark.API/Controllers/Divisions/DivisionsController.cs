@@ -51,6 +51,7 @@ namespace ParkShark.API.Controllers.Divisions
             {
                 return Ok("Division was updated");
             }
+            //Don't just assume a false result to be a 404, make it excplicit, use exceptions and an exception filter: EntityNotFoundException
             return NotFound("Division was not found, No update has been done");
         }
 
@@ -63,6 +64,7 @@ namespace ParkShark.API.Controllers.Divisions
                 return Ok("Division has been deleted");
             }
 
+            //Don't just assume a false result to be a 404, make it excplicit, use exceptions and an exception filter: EntityNotFoundException
             return NotFound("Division was not found. Nothing has been deleted");
         }
     }

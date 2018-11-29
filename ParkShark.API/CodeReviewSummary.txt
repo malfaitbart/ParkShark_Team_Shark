@@ -1,0 +1,31 @@
+﻿DO: Be more explicit when throwing exceptions
+DO: Make use of Async/Await. Data-driven applications are IO-bound, you should leverage the Async methods of EF Core in order to get the best performance possible
+==> this was NOT covered explicitly in the slides or course, I take the assumption Async/Await was handled in a previous module
+DO: Remove not used navigation properties. It is fine to not return them from the API, but you should also omit them entirely if possible. This cuts the overhead that EF Core needs to generate otherwise
+DO: Use AsNoTracking for entities that are returned to the client without ever being modified
+
+KEEP DOING: Returning meaningful HTTP Status responses from your APIs (Created, OK, Bad Request), super!
+KEEP DOING: ErrorHandling Middleware, this is great!
+KEEP DOING: Correct IOC registrations, everything that can be a singleton, is a singleton except for the Database part (DbContext), perfect!
+KEEP DOING: Thinking outside of the box to tackle real-life problems (SQLExpress vs LocalDb)
+KEEP DOING: EF Core migrations, while this was not a requirement, I believe this is a meaningful excercise
+KEEP DOING: Solution setup (API, Test, Domain, Data == one dbcontext)
+KEEP DOING: Using .Set<Entity> for entities you don't want to expose to the outside world
+KEEP DOING: Use Mappers and their IMappers interfaces, great for mocking or stubbing
+KEEP DOING: TESTING, great job!
+KEEP DOING: Use InMemoryDatabase for Tests, you could also have an "Integration test" using an In Memory Database, you're just not integrating with the Database, but all the other levels above
+KEEP DOING: Writing domain exceptions, if a class cannot be constructed correctly using the provided arguments (parameters) throw an exception
+KEEP DOING: Providing seed data in form of a separate class and file, this indicates that it is not essential to the core-logic of the application
+
+CONSIDER: Removing the repository layer between the services and database (since this is a very thin layer)
+CONSIDER: Formatting your core using VS (CTRL K + D) or a formatting tool
+CONSIDER: Moving the DbContext and EF Related classes to a separate project, this is too tightly bound to the domain
+
+START: Using transactions (Scoped, Http Request/Response) to handle atomic data manipulation
+START: Testing the ApiControllers using new DivisionsController(IDivisionServices, IDivisionMapper), you don't need a WebHost (Integration test) to test this, you only need an instance of the controller
+START: Providing test data from a JSON file, this way you don't need to provide test data per test
+START: Using object graphs to save an entity and its one-to-one relations in one operation. A parking lot cannot be created without having an already created contact Person. You could easily create both at once using the graph
+START: Returning domain enum properties as string in the JSON response, this is more readable for the client
+
+STOP: Returning true, return boolean statements
+STOP: Testing your services in ParkShark.API.Tests, these tests should be about the controllers

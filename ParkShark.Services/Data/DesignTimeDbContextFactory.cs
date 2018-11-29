@@ -20,6 +20,8 @@ namespace ParkShark.Services.Data
         private string _connectionstring = ".\\SQLExpress";
         public ParkSharkContext CreateDbContext(string[] args)
         {
+            //Great way to overcome a real-life problem (using env variables), I love the pragmatic approach/solution
+            //However, this code looks to be written in a hurry, refactoring is due (remove foo)
             var foo = Environment.GetEnvironmentVariable("ParkSharkSql", EnvironmentVariableTarget.User);
             if (foo != null && foo.Equals("SqlServer"))
             {

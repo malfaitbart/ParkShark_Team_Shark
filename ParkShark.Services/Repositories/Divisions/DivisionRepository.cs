@@ -21,6 +21,8 @@ namespace ParkShark.Services.Repositories.Divisions
             {
                 _context.Divisions.Remove(divisiontodelete);
                 _context.SaveChanges();
+
+                //return (_context.SaveChanges() == 1) make it explicit that the changes were saved
                 return true;
             }
 
@@ -34,6 +36,7 @@ namespace ParkShark.Services.Repositories.Divisions
 
         public Division GetById(int id)
         {
+            //Use Find, FindAsync from EF Core
             return _context.Divisions.FirstOrDefault(d => d.Id == id);
         }
 
@@ -42,6 +45,7 @@ namespace ParkShark.Services.Repositories.Divisions
             _context.Add(division);
             _context.SaveChanges();
 
+            //return (_context.SaveChanges() == 1) make it explicit that the changes were saved
             return true;
         }
 
@@ -49,6 +53,7 @@ namespace ParkShark.Services.Repositories.Divisions
         {
             _context.Update(division);
             _context.SaveChanges();
+            //Don't just return true, return a boolean statement, _context.SaveChanges() != 0
             return true;
         }
     }
